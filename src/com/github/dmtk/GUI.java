@@ -13,9 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
 
-/**
- * @author D.Martynyuk
- */
 public class GUI extends javax.swing.JFrame {
 
     private static Telnet telnet = null;
