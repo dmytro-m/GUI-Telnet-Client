@@ -5,11 +5,10 @@
  */
 package com.github.dmtk;
 
-/**
- *
- * @author Dmytro
- */
 public class Ssh {
+    
+    
+    
     
     
 }
