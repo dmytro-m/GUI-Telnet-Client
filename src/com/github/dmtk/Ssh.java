@@ -16,12 +16,12 @@ public class Ssh {
                 host = JOptionPane.showInputDialog("Enter username@hostname",
                         //System.getProperty("user.name")
                         "dmtk"
-                        + "@176.36.176.87");
+                        + "@localhost");
             
             String user = host.substring(0, host.indexOf('@'));
             host = host.substring(host.indexOf('@') + 1);
 
-            Session session = jsch.getSession(user, host, 2552);
+            Session session = jsch.getSession(user, host, 22);
 
             String passwd = JOptionPane.showInputDialog("Enter password");
             session.setPassword(passwd);
