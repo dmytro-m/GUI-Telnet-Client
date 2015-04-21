@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Ssh {
 
-    public void test(){
+    public static void test(){
 
         try {
             JSch jsch = new JSch();
@@ -14,13 +14,14 @@ public class Ssh {
             String host = null;
             
                 host = JOptionPane.showInputDialog("Enter username@hostname",
-                        System.getProperty("user.name")
-                        + "@localhost");
+                        //System.getProperty("user.name")
+                        "dmtk"
+                        + "@176.36.176.87");
             
             String user = host.substring(0, host.indexOf('@'));
             host = host.substring(host.indexOf('@') + 1);
 
-            Session session = jsch.getSession(user, host, 22);
+            Session session = jsch.getSession(user, host, 2552);
 
             String passwd = JOptionPane.showInputDialog("Enter password");
             session.setPassword(passwd);
@@ -86,6 +87,8 @@ public class Ssh {
             System.out.println(e);
         }
     }
+    
+     
 
     public static abstract class MyUserInfo
             implements UserInfo, UIKeyboardInteractive {
