@@ -6,28 +6,36 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class MainClass{
+public class MainClass {
+
+    public static void main(String[] argv) {
+
+        System.out.println("sendCommand");
+        Ssh s=new Ssh();
+        s.test();
+    }
 
     public static GUI gui;
-    
-    public static void main(String[] argv) throws IOException, UnsupportedLookAndFeelException, Exception {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager
-                    .getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
-        gui = new GUI();
-        gui.setVisible(true);
+    /*
+     public static void main(String[] argv) throws IOException, UnsupportedLookAndFeelException, Exception {
+     try {
+     for (UIManager.LookAndFeelInfo info : UIManager
+     .getInstalledLookAndFeels()) {
+     if ("Windows".equals(info.getName())) {
+     UIManager.setLookAndFeel(info.getClassName());
+     break;
+     }
+     }
+     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE,
+     null, ex);
+     }
+     gui = new GUI();
+     gui.setVisible(true);
         
         
-    }
+     }*/
+
     public static void launchBrowser(String url) {
         String os = System.getProperty("os.name").toLowerCase();
         Runtime rt = Runtime.getRuntime();
@@ -53,5 +61,3 @@ public class MainClass{
     }
 
 }
-
-
