@@ -3,7 +3,7 @@ package com.github.dmtk;
 import com.jcraft.jsch.*;
 import javax.swing.*;
 
-public class Ssh {
+public class Ssh extends Terminal{
 
     public static void test(){
 
@@ -14,8 +14,7 @@ public class Ssh {
             String host = null;
             
                 host = JOptionPane.showInputDialog("Enter username@hostname",
-                        //System.getProperty("user.name")
-                        "dmtk"
+                        System.getProperty("user.name")
                         + "@localhost");
             
             String user = host.substring(0, host.indexOf('@'));
@@ -87,41 +86,6 @@ public class Ssh {
             System.out.println(e);
         }
     }
+
     
-     
-
-    public static abstract class MyUserInfo
-            implements UserInfo, UIKeyboardInteractive {
-
-        public String getPassword() {
-            return null;
-        }
-
-        public boolean promptYesNo(String str) {
-            return false;
-        }
-
-        public String getPassphrase() {
-            return null;
-        }
-
-        public boolean promptPassphrase(String message) {
-            return false;
-        }
-
-        public boolean promptPassword(String message) {
-            return false;
-        }
-
-        public void showMessage(String message) {
-        }
-
-        public String[] promptKeyboardInteractive(String destination,
-                String name,
-                String instruction,
-                String[] prompt,
-                boolean[] echo) {
-            return null;
-        }
-    }
 }

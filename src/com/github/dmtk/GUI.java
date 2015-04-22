@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
 
 public class GUI extends javax.swing.JFrame {
-
+    
+    private volatile static GUI uniqueGui;
     private static Telnet telnet = null;
     private static Telnet telnet2 = null;
     private Authentication au;
@@ -26,8 +27,9 @@ public class GUI extends javax.swing.JFrame {
     private EdgeCoreSwitch ecs = new EdgeCoreSwitch();
     private DLinkSwitch dls = new DLinkSwitch();
     private BDCOMOlt bdt = new BDCOMOlt();
+    private String ctrlC = "\003";
 
-    public GUI() {
+    private GUI() {
 
         initComponents();
         DefaultCaret caret = (DefaultCaret) CLITextArea1.getCaret();
@@ -53,6 +55,17 @@ public class GUI extends javax.swing.JFrame {
         });
         myThready.start();
 
+    }
+    
+    public static GUI getInstance(){
+        if(uniqueGui==null){
+            synchronized (GUI.class){
+                if(uniqueGui==null){
+                    uniqueGui=new GUI();
+                }
+            }
+        }
+        return uniqueGui;
     }
 
 
@@ -2124,11 +2137,13 @@ public class GUI extends javax.swing.JFrame {
             CLITextArea1.setText("");
         } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
             CLITextArea2.setText("");
+        } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("SSH")) {
+            CLITextArea3.setText("");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void macTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_macTextFieldActionPerformed
-        getjTextField4().setText(getjTextField4().getText().replace(':', '-'));//change to switch enabled format
+        getjTextField4().setText(Formater.replace(macTextField.getText()));
     }//GEN-LAST:event_macTextFieldActionPerformed
 
     private void CLITextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea1KeyPressed
@@ -2165,7 +2180,9 @@ public class GUI extends javax.swing.JFrame {
             public void run() {
                 PingWindow p = new PingWindow();
                 p.setVisible(true);
-                Telnet.pingClient(p.getjTextArea1(), ipTextField.getText());
+                PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
+                System.setOut(printStream);
+                Telnet.pingClient(printStream, ipTextField.getText());
             }
 
         });
@@ -2190,7 +2207,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void CtrlCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CtrlCButtonActionPerformed
 
-        String command = "\003";
+        String command = ctrlC;
         telnetActive.sendCommand(command);
 
 
@@ -2212,7 +2229,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        command = "\003";
+        command = ctrlC;
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -2303,7 +2320,7 @@ public class GUI extends javax.swing.JFrame {
         String command = dls.showErrorsOnPort(portTextField.getText());
         telnetActive.sendCommand(command);
 
-        command = "\003";
+        command = ctrlC;
         try {
             Thread.sleep(150);
         } catch (InterruptedException ex) {
@@ -2316,7 +2333,7 @@ public class GUI extends javax.swing.JFrame {
 
         String command = dls.showPacketsOnPort(portTextField.getText());
         telnetActive.sendCommand(command);
-        command = "\003";//Ctrl+C for interrupt
+        command = ctrlC;//Ctrl+C for interrupt
         try {
             Thread.sleep(150);
         } catch (InterruptedException ex) {
@@ -2396,7 +2413,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         telnetActive.sendCommand(command);
-        command = "\003";
+        command = ctrlC;
         try {
             Thread.sleep(150);
         } catch (InterruptedException ex) {
@@ -2433,7 +2450,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        command = "\003";//Ctrl+C
+        command = ctrlC;//Ctrl+C
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -2744,7 +2761,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        command = "\003";//Ctrl+C
+        command = ctrlC;//Ctrl+C
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_loginButton2ActionPerformed
 
@@ -2985,7 +3002,9 @@ public class GUI extends javax.swing.JFrame {
             public void run() {
                 PingWindow p = new PingWindow();
                 p.setVisible(true);
-                Telnet.pingClient(p.getjTextArea1(), switchIPTextField.getText());
+                PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
+                System.setOut(printStream);
+                Telnet.pingClient(printStream, switchIPTextField.getText());
             }
 
         });
@@ -2998,7 +3017,10 @@ public class GUI extends javax.swing.JFrame {
             public void run() {
                 PingWindow p = new PingWindow();
                 p.setVisible(true);
-                Telnet.pingClient(p.getjTextArea1(), jTextField19.getText());
+                PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
+                System.setOut(printStream);
+                Telnet.pingClient(printStream, jTextField19.getText());
+
             }
 
         });
@@ -3029,23 +3051,8 @@ public class GUI extends javax.swing.JFrame {
     private void commandTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_commandTabbedPane1StateChanged
         if (commandTabbedPane1.getTitleAt(commandTabbedPane1.getSelectedIndex()).equals("BDCOM")) {
 
-            //convert MAC string from XX-XX-XX-XX-XX-XX to XXXX.XXXX.XXXX 
             String str = macTextField.getText();
-            String out = "";
-            int count = 0;
-            for (int i = 0; i < str.length(); i++) {
-                if (str.charAt(i) == '-') {
-                    count++;
-                    if (count % 2 == 0) {
-                        System.out.println(i);
-                        out += ".";
-                    }
-                } else {
-                    out += str.charAt(i);
-                }
-
-            }
-            jTextField2.setText(out);
+            jTextField2.setText(Formater.convert(str));
         }
     }//GEN-LAST:event_commandTabbedPane1StateChanged
 
@@ -3099,7 +3106,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        command = "\003";//Ctrl+C
+        command = ctrlC;//Ctrl+C
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton44ActionPerformed
 
@@ -3655,7 +3662,7 @@ public class GUI extends javax.swing.JFrame {
                                 options, //the titles of buttons
                                 options[0]); //default button title
                         if (n != 0) {
-                            System.exit(0);
+                            System.exit(0);//close application
                         }
                     }
                 } catch (Exception ex) {
