@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -24,14 +22,14 @@ import org.apache.commons.net.telnet.SuppressGAOptionHandler;
 import org.apache.commons.net.telnet.TelnetClient;
 import org.apache.commons.net.telnet.TelnetNotificationHandler;
 import org.apache.commons.net.telnet.TerminalTypeOptionHandler;
+import java.io.PrintStream;
 
-
-public class Telnet implements Runnable, TelnetNotificationHandler {
+public class Telnet extends Terminal implements Runnable, TelnetNotificationHandler {
 
     private static TelnetClient tc = null;
     private static boolean end_loop = false;
     private String remoteip;
-    int remoteport;
+    private int remoteport;
     private JTextArea out;
     private JTextField serverIPTextField;//for changing color of field
 
@@ -236,34 +234,8 @@ public class Telnet implements Runnable, TelnetNotificationHandler {
         }
 
     }
-    private boolean interruptWaiting;
-    private String cmd = "";
 
-    public void sendCommand(String command) {
-
-        cmd = command;
-        cmd = cmd + "\n";
-        interruptWaiting = true;
-
-    }
-
-    byte[] waitCommand() throws InterruptedException {
-
-        while (!interruptWaiting) {
-            Thread.sleep(20);
-        }
-        interruptWaiting = false;
-        char[] chars = cmd.toCharArray();
-        byte[] bytes = Charset.forName("ASCII").encode(CharBuffer.wrap(chars)).array();//encode chars to bytes
-        cmd = "";
-        return bytes;
-    }
-    
-    
-    
-    
-
-    static synchronized void pingClient(JTextArea out, String ip) {
+    static synchronized void pingClient(PrintStream stream, String ip) {
 
         List<String> commands = new ArrayList<String>();
         commands.add("ping");
@@ -282,7 +254,8 @@ public class Telnet implements Runnable, TelnetNotificationHandler {
             while ((s = stdInput.readLine()) != null) {
 
                 String newString =new String(s.getBytes("windows-1251"), "cp866");//change encoding
-                out.setText(out.getText()+ "\n" + newString);
+                System.out.println(newString);
+                //out.setText(out.getText()+ "\n" + newString);
                 
             }
         } catch (IOException ex) {
@@ -291,7 +264,8 @@ public class Telnet implements Runnable, TelnetNotificationHandler {
         // read any errors from the attempted command
         try {
             while ((s = stdError.readLine()) != null) {
-                out.setText(out.getText() + "/n");
+                System.out.println(s);
+                //out.setText(out.getText() + "/n");
             }
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
