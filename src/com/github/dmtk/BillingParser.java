@@ -59,14 +59,10 @@ public class BillingParser {
     
     static String eq ="&";
     
-    static {
-        out = MainClass.gui.getjTextArea1();
-    }
-
     private static HtmlUnitDriver authorize() {
 
         System.out.print(billingURL);
-        MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + "Autorization");
+        GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + "Autorization");
 
         HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_24);
         driver.setJavascriptEnabled(true);
@@ -74,16 +70,16 @@ public class BillingParser {
         for (int i = 0; i < 6; i++) {
             try {
                 Thread.sleep(800);
-                MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + ".");
+                GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + ".");
             } catch (InterruptedException ex) {
                 Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         try {
             driver.findElement(By.name(htmlInputAutentificationLoginName)).clear();
-            driver.findElement(By.name(htmlInputAutentificationLoginName)).sendKeys(MainClass.gui.getjTextField9().getText());
+            driver.findElement(By.name(htmlInputAutentificationLoginName)).sendKeys(GUI.getInstance().getjTextField9().getText());
             driver.findElement(By.name(htmlInputPasswordName)).clear();
-            driver.findElement(By.name(htmlInputPasswordName)).sendKeys(new String(MainClass.gui.getjPasswordField1().getPassword()));
+            driver.findElement(By.name(htmlInputPasswordName)).sendKeys(new String(GUI.getInstance().getjPasswordField1().getPassword()));
             element = driver.findElement(By.cssSelector(cssSelectorAcceptButtonName));
             element.click();
         } catch (Exception ex) {
@@ -95,7 +91,7 @@ public class BillingParser {
         } catch (InterruptedException ex) {
             Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + "Done ");
+        GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + "Done ");
         return driver;
     }
 
@@ -109,7 +105,7 @@ public class BillingParser {
         myThready = new Thread(new Runnable() {
             @Override
             public void run() {
-                MainClass.gui.getjLabel2().setText("Getting data.");
+                GUI.getInstance().getjLabel2().setText("Getting data.");
                 abon_num = num;
                 String modemIP = null;
                 HtmlUnitDriver driver = authorize();
@@ -123,7 +119,7 @@ public class BillingParser {
                 try {
                     element = driver.findElement(By.className(htmlTableClassName));
                 } catch (org.openqa.selenium.NoSuchElementException ex) {
-                    MainClass.gui.getjLabel2().setText("wrong login or password");
+                    GUI.getInstance().getjLabel2().setText("wrong login or password");
                 }
 
                 try {
@@ -134,7 +130,7 @@ public class BillingParser {
                     driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq+idFilterGETRequest+eq+idFilterGETRequestOption+idFilterGETRequestAnchor2);
                     System.out.println(driver.getCurrentUrl());
                 } catch (org.openqa.selenium.StaleElementReferenceException ex) {
-                    MainClass.gui.getjLabel2().setText("wrong id");
+                    GUI.getInstance().getjLabel2().setText("wrong id");
                 }
                 try {
                     driver.get(billingURL + computerInformationPage + requestSymbol + hostFilterGETRequest+eq+hostFilterGETRequestOption+"%3D" + userTitle + hostFilterGETRequestAnchor);
@@ -148,8 +144,8 @@ public class BillingParser {
                         if (str != null) {
                             if (str.contains(billingURL + switchInformationPage + requestSymbol + idTag) && (element.getText().contains("10."))) {
                                 modemIP = element.getText();
-                                MainClass.gui.getjTextField5().setText(modemIP);
-                                MainClass.gui.getjTextField5().setBackground(Color.GREEN);
+                                GUI.getInstance().getjTextField5().setText(modemIP);
+                                GUI.getInstance().getjTextField5().setBackground(Color.GREEN);
 
                             }
                         }
@@ -188,28 +184,28 @@ public class BillingParser {
                         hosts.add(host);
 
                     }
-                    MainClass.gui.initialiseHosts(hosts);
+                    GUI.getInstance().initialiseHosts(hosts);
 
                     //parse user name info
                     driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq+idFilterGETRequestOption2+idFilterGETRequestAnchor);
                     element = driver.findElement(By.name(htmlInputLastNameName));
-                    MainClass.gui.getjLabel2().setText(element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.name(htmlInputFirstNameName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.name(htmlInputPatronymicName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.className(htmlSelectViewClassName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getText());
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getText());
                     element = driver.findElement(By.name(htmlInputPlaceClassName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.name(htmlInputContractName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.name(htmlInputLoginName));
-                    MainClass.gui.getjLabel2().setText(MainClass.gui.getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
+                    GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + " " + element.getAttribute(htmlElementAttribute));
                     driver.quit();
 
                 } catch (org.openqa.selenium.NoSuchElementException ex) {
-                    MainClass.gui.getjLabel2().setText("parsing error");
+                    GUI.getInstance().getjLabel2().setText("parsing error");
                 }
 
             }

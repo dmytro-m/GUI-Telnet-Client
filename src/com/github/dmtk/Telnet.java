@@ -210,7 +210,7 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
                 ret_read = instr.read(buff);
                 if (ret_read > 0) {
                     System.out.print(new String(buff, 0, ret_read));
-                    //out.setText(out.getText() + new String(buff, 0, ret_read));
+                    out.setText(out.getText() + new String(buff, 0, ret_read));
                 }
             } while (ret_read >= 0);
         } catch (Exception e) {

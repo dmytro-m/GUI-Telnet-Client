@@ -1,26 +1,44 @@
 package com.github.dmtk;
 
 import com.jcraft.jsch.*;
+import java.io.IOException;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
 import javax.swing.*;
 
-public class Ssh extends Terminal{
+public class Ssh extends Terminal {
 
-    public static void test(){
+    @Override
+    public void sendCommand(String cmd) {
+        cmd = cmd + "\r\n";
+        char[] chars = cmd.toCharArray();
+        byte[] bytes = Charset.forName("ASCII").encode(CharBuffer.wrap(chars)).array();
+        try {
+            streamOut.write(bytes);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+
+    public void start(String ip, int port) {
 
         try {
             JSch jsch = new JSch();
 
-      //jsch.setKnownHosts("/home/foo/.ssh/known_hosts");
+            //jsch.setKnownHosts("/home/foo/.ssh/known_hosts");
             String host = null;
-            
-                host = JOptionPane.showInputDialog("Enter username@hostname",
-                        System.getProperty("user.name")
-                        + "@localhost");
-            
+
+            host = JOptionPane.showInputDialog("Enter username@hostname",
+                    System.getProperty("user.name")
+                    + "@" + ip);
+
             String user = host.substring(0, host.indexOf('@'));
             host = host.substring(host.indexOf('@') + 1);
 
-            Session session = jsch.getSession(user, host, 22);
+            Session session = jsch.getSession(user, host, port);
 
             String passwd = JOptionPane.showInputDialog("Enter password");
             session.setPassword(passwd);
@@ -41,7 +59,7 @@ public class Ssh extends Terminal{
                     return foo == 0;
                 }
 
-        // If password is not given before the invocation of Session#connect(),
+                // If password is not given before the invocation of Session#connect(),
                 // implement also following methods,
                 //   * UserInfo#getPassword(),
                 //   * UserInfo#promptPassword(String message) and
@@ -50,7 +68,7 @@ public class Ssh extends Terminal{
 
             session.setUserInfo(ui);
 
-      // It must not be recommended, but if you want to skip host-key check,
+            // It must not be recommended, but if you want to skip host-key check,
             // invoke following,
             // session.setConfig("StrictHostKeyChecking", "no");
             //session.connect();
@@ -58,9 +76,12 @@ public class Ssh extends Terminal{
 
             Channel channel = session.openChannel("shell");
 
-      // Enable agent-forwarding.
+            new Pipe(channel.getInputStream(), System.out).start();
+            new Pipe(System.in, channel.getOutputStream()).start();
+            streamOut = channel.getOutputStream();
+// Enable agent-forwarding.
             //((ChannelShell)channel).setAgentForwarding(true);
-            channel.setInputStream(System.in);
+            //channel.setInputStream(this.in);
             /*
              // a hack for MS-DOS prompt on Windows.
              channel.setInputStream(new FilterInputStream(System.in){
@@ -70,7 +91,7 @@ public class Ssh extends Terminal{
              });
              */
 
-            channel.setOutputStream(System.out);
+            //channel.setOutputStream(System.out);
 
             /*
              // Choose the pty-type "vt102".
@@ -82,10 +103,45 @@ public class Ssh extends Terminal{
              */
             //channel.connect();
             channel.connect(3 * 1000);
+            
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    
+    public static abstract class MyUserInfo
+            implements UserInfo, UIKeyboardInteractive {
+
+        public String getPassword() {
+            return null;
+        }
+
+        public boolean promptYesNo(String str) {
+            return false;
+        }
+
+        public String getPassphrase() {
+            return null;
+        }
+
+        public boolean promptPassphrase(String message) {
+            return false;
+        }
+
+        public boolean promptPassword(String message) {
+            return false;
+        }
+
+        public void showMessage(String message) {
+        }
+
+        public String[] promptKeyboardInteractive(String destination,
+                String name,
+                String instruction,
+                String[] prompt,
+                boolean[] echo) {
+            return null;
+        }
+    }
+
 }

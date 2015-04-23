@@ -19,15 +19,17 @@ public class GUI extends javax.swing.JFrame {
     private volatile static GUI uniqueGui;
     private static Telnet telnet = null;
     private static Telnet telnet2 = null;
+    private static Ssh ssh=new Ssh();
     private Authentication au;
     public String hostID;
     private List<Host> hosts = new ArrayList();
-    private static Telnet telnetActive = null;
+    private static Terminal telnetActive = null;
     private boolean repeatClean = true;
     private EdgeCoreSwitch ecs = new EdgeCoreSwitch();
     private DLinkSwitch dls = new DLinkSwitch();
     private BDCOMOlt bdt = new BDCOMOlt();
     private String ctrlC = "\003";
+    
 
     private GUI() {
 
@@ -45,15 +47,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         log();
-        PrintStream printStream = new PrintStream(new TextAreaOutputStream(CLITextArea3));
-        System.setOut(printStream);
-        Thread myThready = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Ssh.test();
-            }
-        });
-        myThready.start();
+        
 
     }
     
@@ -218,7 +212,7 @@ public class GUI extends javax.swing.JFrame {
         CLITextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jTextField19 = new javax.swing.JTextField();
+        switchIPTextField2 = new javax.swing.JTextField();
         connectButton2 = new javax.swing.JButton();
         loginButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -228,8 +222,8 @@ public class GUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         CLITextArea3 = new javax.swing.JTextArea();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
+        switchIPTextField3 = new javax.swing.JTextField();
+        tcpPortTextField3 = new javax.swing.JTextField();
         connectButton3 = new javax.swing.JButton();
         loginButton3 = new javax.swing.JButton();
         jButton61 = new javax.swing.JButton();
@@ -1810,16 +1804,16 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Telnet #1", CLITerminal1);
 
-        jTextField19.setText("...switch IP");
-        jTextField19.setToolTipText("IP комутатора");
-        jTextField19.addActionListener(new java.awt.event.ActionListener() {
+        switchIPTextField2.setText("...switch IP");
+        switchIPTextField2.setToolTipText("IP комутатора");
+        switchIPTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField19ActionPerformed(evt);
+                switchIPTextField2ActionPerformed(evt);
             }
         });
-        jTextField19.addKeyListener(new java.awt.event.KeyAdapter() {
+        switchIPTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField19KeyTyped(evt);
+                switchIPTextField2KeyTyped(evt);
             }
         });
 
@@ -1877,7 +1871,7 @@ public class GUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(switchIPTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1893,7 +1887,7 @@ public class GUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(switchIPTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(connectButton2)
                     .addComponent(loginButton2)
                     .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1925,21 +1919,21 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(CLITextArea3);
 
-        jTextField21.setText("...switch IP");
-        jTextField21.setToolTipText("IP комутатора");
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+        switchIPTextField3.setText("...switch IP");
+        switchIPTextField3.setToolTipText("IP комутатора");
+        switchIPTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
+                switchIPTextField3ActionPerformed(evt);
             }
         });
-        jTextField21.addKeyListener(new java.awt.event.KeyAdapter() {
+        switchIPTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField21KeyTyped(evt);
+                switchIPTextField3KeyTyped(evt);
             }
         });
 
-        jTextField22.setText("22");
-        jTextField22.setToolTipText("Port for telnet connection");
+        tcpPortTextField3.setText("22");
+        tcpPortTextField3.setToolTipText("Port for telnet connection");
 
         connectButton3.setText("Connect");
         MyButtonUI.setupButtonUI(connectButton2);
@@ -1971,9 +1965,9 @@ public class GUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(switchIPTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tcpPortTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(connectButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1987,10 +1981,10 @@ public class GUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(switchIPTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(connectButton3)
                     .addComponent(loginButton3)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tcpPortTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton61))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
@@ -2700,13 +2694,13 @@ public class GUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_switchIPTextFieldKeyTyped
 
-    private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
+    private void switchIPTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField19ActionPerformed
+    }//GEN-LAST:event_switchIPTextField2ActionPerformed
 
-    private void jTextField19KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField19KeyTyped
+    private void switchIPTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_switchIPTextField2KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField19KeyTyped
+    }//GEN-LAST:event_switchIPTextField2KeyTyped
 
     private void connectButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton2ActionPerformed
         if (telnet2 != null) {
@@ -2720,7 +2714,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
         if (telnet2 == null) {
-            telnet2 = new Telnet(jTextField19.getText(), Integer.parseInt(jTextField20.getText()), CLITextArea2, jTextField19);
+            telnet2 = new Telnet(switchIPTextField2.getText(), Integer.parseInt(jTextField20.getText()), CLITextArea2, switchIPTextField2);
         }
         telnetActive = telnet2;
         Thread myThready = new Thread(new Runnable() {
@@ -3019,7 +3013,7 @@ public class GUI extends javax.swing.JFrame {
                 p.setVisible(true);
                 PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
                 System.setOut(printStream);
-                Telnet.pingClient(printStream, jTextField19.getText());
+                Telnet.pingClient(printStream, switchIPTextField2.getText());
 
             }
 
@@ -3124,16 +3118,27 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+    private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
+    }//GEN-LAST:event_switchIPTextField3ActionPerformed
 
-    private void jTextField21KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField21KeyTyped
+    private void switchIPTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_switchIPTextField3KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21KeyTyped
+    }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
-        // TODO add your handling code here:
+        PrintStream printStream = new PrintStream(new TextAreaOutputStream(CLITextArea3));
+        System.setOut(printStream);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ssh.start(switchIPTextField3.getText(), Integer.parseInt(tcpPortTextField3.getText()));
+                telnetActive=ssh;
+                
+                
+            }
+        });
+        thread.start();
     }//GEN-LAST:event_connectButton3ActionPerformed
 
     private void loginButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton3ActionPerformed
@@ -3292,11 +3297,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
@@ -3307,12 +3309,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField portTextField;
     private javax.swing.JButton showSystemButton;
     private javax.swing.JTextField switchIPTextField;
+    private javax.swing.JTextField switchIPTextField2;
+    private javax.swing.JTextField switchIPTextField3;
+    private javax.swing.JTextField tcpPortTextField3;
     private javax.swing.JTextField vlanTextField;
     // End of variables declaration//GEN-END:variables
-
-    void connect(Telnet telnet) {
-        this.telnet = telnet;
-    }
 
     /**
      * @return the jPasswordField1
@@ -3445,6 +3446,10 @@ public class GUI extends javax.swing.JFrame {
      */
     public javax.swing.JTextArea getjTextArea1() {
         return CLITextArea1;
+    }
+    
+    public javax.swing.JTextArea getCLITextArea3() {
+        return CLITextArea3;
     }
 
     /**
@@ -3613,7 +3618,7 @@ public class GUI extends javax.swing.JFrame {
                         String url = connect.getUrl();
                         while (flag) {
                             Object[] options = {"Так"};
-                            int n = JOptionPane.showOptionDialog(MainClass.gui,
+                            int n = JOptionPane.showOptionDialog(GUI.getInstance(),
                                     "Доступна нова версія " + ver + ". Завантажити?",
                                     "",
                                     JOptionPane.YES_OPTION,
@@ -3653,7 +3658,7 @@ public class GUI extends javax.swing.JFrame {
                     connect.setData();
                     if (connect.selectMessage() != null) {
                         Object[] options = {"Ok"};
-                        int n = JOptionPane.showOptionDialog(MainClass.gui,
+                        int n = JOptionPane.showOptionDialog(GUI.getInstance(),
                                 connect.selectMessage(),
                                 "",
                                 JOptionPane.YES_OPTION,

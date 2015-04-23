@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainClass {
 
-    public static GUI gui;
+    private static GUI gui;
 
     public static void main(String[] argv) throws IOException, UnsupportedLookAndFeelException, Exception {
         try {

@@ -51,7 +51,7 @@ public class DBConnect {
             DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
             String date = formatter.format(now);
             String ip = InetAddress.getLocalHost().getHostAddress();
-            String query = "INSERT INTO userstelnet (ip,user,time) VALUE (\"" + ip + "\",\"" + MainClass.gui.getjTextField10().getText() + "\",\"" + date + "\")";
+            String query = "INSERT INTO userstelnet (ip,user,time) VALUE (\"" + ip + "\",\"" + GUI.getInstance().getjTextField10().getText() + "\",\"" + date + "\")";
             st.executeUpdate(query);
             //System.out.println(Encoder.decode(new String(rs.getBytes("url"))));
         } catch (Exception ex) {
@@ -89,7 +89,7 @@ public class DBConnect {
 
     public String selectMessage() {
         try {
-            String query = "SELECT mes FROM message WHERE user=\"" + MainClass.gui.getjTextField10().getText() + "\"";
+            String query = "SELECT mes FROM message WHERE user=\"" + GUI.getInstance().getjTextField10().getText() + "\"";
             rs = st.executeQuery(query);
             rs.next();
             return Encoder.decode(new String(rs.getBytes("mes")));

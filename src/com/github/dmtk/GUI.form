@@ -2290,7 +2290,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField19" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="switchIPTextField2" min="-2" pref="85" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextField20" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2308,7 +2308,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField19" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="switchIPTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="connectButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="loginButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField20" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2321,14 +2321,14 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTextField19">
+            <Component class="javax.swing.JTextField" name="switchIPTextField2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="...switch IP"/>
                 <Property name="toolTipText" type="java.lang.String" value="IP &#x43a;&#x43e;&#x43c;&#x443;&#x442;&#x430;&#x442;&#x43e;&#x440;&#x430;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField19ActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField19KeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="switchIPTextField2ActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="switchIPTextField2KeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="connectButton2">
@@ -2422,9 +2422,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField21" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="switchIPTextField3" min="-2" pref="85" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField22" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="tcpPortTextField3" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="connectButton3" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2440,10 +2440,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField21" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="switchIPTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="connectButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="loginButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField22" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tcpPortTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton61" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2489,17 +2489,17 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JTextField" name="jTextField21">
+            <Component class="javax.swing.JTextField" name="switchIPTextField3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="...switch IP"/>
                 <Property name="toolTipText" type="java.lang.String" value="IP &#x43a;&#x43e;&#x43c;&#x443;&#x442;&#x430;&#x442;&#x43e;&#x440;&#x430;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField21ActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField21KeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="switchIPTextField3ActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="switchIPTextField3KeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField22">
+            <Component class="javax.swing.JTextField" name="tcpPortTextField3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="22"/>
                 <Property name="toolTipText" type="java.lang.String" value="Port for telnet connection"/>

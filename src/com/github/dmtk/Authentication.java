@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 
 public class Authentication implements Serializable {
 
-    private String loginTelnet;
-    private String passwdTelnet;
+    private String loginTerminal;
+    private String passwdTerminal;
     private String loginBilling;
     private String passwdBilling;
     private byte[] key=new byte[]{35, 56, 20, 40, 25, 97, 47, 28};//key for DES encryption
@@ -27,20 +27,20 @@ public class Authentication implements Serializable {
             Authentication ted = (Authentication) ois.readObject();
             StringCrypter crypter = new StringCrypter(key);
             this.loginBilling = crypter.decrypt(ted.loginBilling);
-            this.loginTelnet = crypter.decrypt(ted.loginTelnet);
+            this.loginTerminal = crypter.decrypt(ted.loginTerminal);
             this.passwdBilling = crypter.decrypt(ted.passwdBilling);
-            this.passwdTelnet = crypter.decrypt(ted.passwdTelnet);
+            this.passwdTerminal = crypter.decrypt(ted.passwdTerminal);
             gui.getjTextField9().setText(this.loginBilling);
-            gui.getjTextField10().setText(this.loginTelnet);
+            gui.getjTextField10().setText(this.loginTerminal);
             gui.getjPasswordField1().setText(this.passwdBilling);
-            gui.getjPasswordField2().setText(this.passwdTelnet);
+            gui.getjPasswordField2().setText(this.passwdTerminal);
             new File("temp.out").delete();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
             this.loginBilling = gui.getjTextField9().getText();
-            this.loginTelnet = gui.getjTextField10().getText();
+            this.loginTerminal = gui.getjTextField10().getText();
             this.passwdBilling = new String(gui.getjPasswordField1().getPassword());
-            this.passwdTelnet = new String(gui.getjPasswordField2().getPassword());
+            this.passwdTerminal = new String(gui.getjPasswordField2().getPassword());
         }
 
     }
@@ -48,23 +48,23 @@ public class Authentication implements Serializable {
     public void serialize() throws FileNotFoundException, IOException {
         
         String tempLoginBilling=this.loginBilling;
-        String tempLoginTelnet=this.loginTelnet;
+        String tempLoginTelnet=this.loginTerminal;
         String tempPasswdBilling=this.passwdBilling;
-        String tempPasswdTelnet=this.passwdTelnet;
+        String tempPasswdTelnet=this.passwdTerminal;
         StringCrypter crypter = new StringCrypter(key);
-        this.loginBilling = crypter.encrypt(MainClass.gui.getjTextField9().getText());
-        this.loginTelnet = crypter.encrypt(MainClass.gui.getjTextField10().getText());
-        this.passwdBilling = crypter.encrypt(new String(MainClass.gui.getjPasswordField1().getPassword()));
-        this.passwdTelnet = crypter.encrypt(new String(MainClass.gui.getjPasswordField2().getPassword()));
+        this.loginBilling = crypter.encrypt(GUI.getInstance().getjTextField9().getText());
+        this.loginTerminal = crypter.encrypt(GUI.getInstance().getjTextField10().getText());
+        this.passwdBilling = crypter.encrypt(new String(GUI.getInstance().getjPasswordField1().getPassword()));
+        this.passwdTerminal = crypter.encrypt(new String(GUI.getInstance().getjPasswordField2().getPassword()));
         FileOutputStream fos = new FileOutputStream("temp.out");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(this);
         oos.flush();
         oos.close();
         this.loginBilling=tempLoginBilling;
-        this.loginTelnet=tempLoginTelnet;
+        this.loginTerminal=tempLoginTelnet;
         this.passwdBilling=tempPasswdBilling;
-        this.passwdTelnet=tempPasswdTelnet;
+        this.passwdTerminal=tempPasswdTelnet;
     }
 
     public void repair() throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -73,9 +73,9 @@ public class Authentication implements Serializable {
         Authentication ted = (Authentication) ois.readObject();
         StringCrypter crypter = new StringCrypter(key);
         this.loginBilling = crypter.decrypt(ted.loginBilling);
-        this.loginTelnet = crypter.decrypt(ted.loginTelnet);
+        this.loginTerminal = crypter.decrypt(ted.loginTerminal);
         this.passwdBilling = crypter.decrypt(ted.passwdBilling);
-        this.passwdTelnet = crypter.decrypt(ted.passwdTelnet);
+        this.passwdTerminal = crypter.decrypt(ted.passwdTerminal);
         ois.close();        
         new File("temp.out").delete();
     }
@@ -83,29 +83,29 @@ public class Authentication implements Serializable {
     /**
      * @return the loginTelnet
      */
-    public String getLoginTelnet() {
-        return loginTelnet;
+    public String getLoginTerminal() {
+        return loginTerminal;
     }
 
     /**
-     * @param loginTelnet the loginTelnet to set
+     * @param loginTerminal the loginTelnet to set
      */
-    public void setLoginTelnet(String loginTelnet) {
-        this.loginTelnet = loginTelnet;
+    public void setLoginTerminal(String loginTerminal) {
+        this.loginTerminal = loginTerminal;
     }
 
     /**
      * @return the passwdTelnet
      */
-    public String getPasswdTelnet() {
-        return passwdTelnet;
+    public String getPasswdTerminal() {
+        return passwdTerminal;
     }
 
     /**
-     * @param passwdTelnet the passwdTelnet to set
+     * @param passwdTerminal the passwdTelnet to set
      */
-    public void setPasswdTelnet(String passwdTelnet) {
-        this.passwdTelnet = passwdTelnet;
+    public void setPasswdTerminal(String passwdTerminal) {
+        this.passwdTerminal = passwdTerminal;
     }
 
     /**

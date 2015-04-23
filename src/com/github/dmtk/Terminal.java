@@ -1,25 +1,32 @@
 package com.github.dmtk;
 
+import java.io.OutputStream;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 public class Terminal {
-    
-    private boolean interruptWaiting;
+
+    OutputStream streamOut;
+
     private String cmd = "";
+    private boolean interruptWaiting = false;
 
     public void sendCommand(String command) {
 
+        
         cmd = command;
         cmd = cmd + "\n";
         interruptWaiting = true;
 
     }
 
-    byte[] waitCommand() throws InterruptedException {
+    byte[] waitCommand() {
 
         while (!interruptWaiting) {
-            Thread.sleep(20);
+            try {
+                Thread.sleep(20);
+            } catch (Exception ex) {
+            }
         }
         interruptWaiting = false;
         char[] chars = cmd.toCharArray();
