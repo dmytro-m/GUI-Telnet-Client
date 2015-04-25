@@ -1,30 +1,25 @@
 package com.github.dmtk;
 
 import com.jcraft.jsch.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.util.logging.Level;
+import java.io.PrintStream;
 import javax.swing.*;
 
 public class Ssh extends Terminal {
 
-    @Override
-    public void sendCommand(String cmd) {
-        cmd = cmd + "\r\n";
-        char[] chars = cmd.toCharArray();
-        byte[] bytes = Charset.forName("ASCII").encode(CharBuffer.wrap(chars)).array();
-        try {
-            streamOut.write(bytes);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private static Ssh ssh = new Ssh();
+    private static boolean end_loop = false;
+    private Ssh() {
+
     }
 
-    
+    public static Ssh getInstance() {
+        return ssh;
+    }
 
-    public void start(String ip, int port) {
-
+    public void start(String ip, int port, PrintStream output) {
+        
         try {
             JSch jsch = new JSch();
 
@@ -33,7 +28,7 @@ public class Ssh extends Terminal {
 
             host = JOptionPane.showInputDialog("Enter username@hostname",
                     System.getProperty("user.name")
-                    + "@" + ip);
+                     + "@" + ip);
 
             String user = host.substring(0, host.indexOf('@'));
             host = host.substring(host.indexOf('@') + 1);
@@ -75,13 +70,15 @@ public class Ssh extends Terminal {
             session.connect(30000);   // making a connection with timeout.
 
             Channel channel = session.openChannel("shell");
-
-            new Pipe(channel.getInputStream(), System.out).start();
-            new Pipe(System.in, channel.getOutputStream()).start();
+            channel.setInputStream(System.in);
+            channel.setOutputStream(output);
             streamOut = channel.getOutputStream();
+            //new Pipe(channel.getInputStream(), streamOut).start();
+            //new Pipe(in, channel.getOutputStream()).start();
+
 // Enable agent-forwarding.
             //((ChannelShell)channel).setAgentForwarding(true);
-            //channel.setInputStream(this.in);
+
             /*
              // a hack for MS-DOS prompt on Windows.
              channel.setInputStream(new FilterInputStream(System.in){
@@ -90,9 +87,6 @@ public class Ssh extends Terminal {
              }
              });
              */
-
-            //channel.setOutputStream(System.out);
-
             /*
              // Choose the pty-type "vt102".
              ((ChannelShell)channel).setPtyType("vt102");
@@ -103,10 +97,40 @@ public class Ssh extends Terminal {
              */
             //channel.connect();
             channel.connect(3 * 1000);
-            
+
+            Thread thread1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (!end_loop) {
+                        int ret_read = 0;
+                        do {
+                            buff = Ssh.getInstance().waitCommand();
+                            in = new ByteArrayInputStream(buff);
+                            try {
+                                ret_read = in.read(buff);
+                                System.out.print(ret_read + " " + new String(buff, 0, ret_read) + "\n");
+
+                                try {
+                                    streamOut.write(buff, 0, ret_read);
+                                    streamOut.flush();
+                                } catch (IOException e) {
+                                    end_loop = true;
+                                }
+
+                            } catch (IOException e) {
+                                System.err.println("Exception while reading keyboard:" + e.getMessage());
+                                end_loop = true;
+                            }
+                        } while ((ret_read > 0) && (end_loop == false));
+                    }
+                }
+
+            });
+            thread1.start();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
+
     }
 
     public static abstract class MyUserInfo

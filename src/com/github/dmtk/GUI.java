@@ -19,7 +19,7 @@ public class GUI extends javax.swing.JFrame {
     private volatile static GUI uniqueGui;
     private static Telnet telnet = null;
     private static Telnet telnet2 = null;
-    private static Ssh ssh=new Ssh();
+    private static Ssh ssh=Ssh.getInstance();
     private Authentication au;
     public String hostID;
     private List<Host> hosts = new ArrayList();
@@ -2096,8 +2096,7 @@ public class GUI extends javax.swing.JFrame {
 
         if (telnet != null) {
             try {
-                telnet.disconnect();
-                telnet = null;
+                telnet.disconnect();                
             } catch (IOException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -2785,6 +2784,8 @@ public class GUI extends javax.swing.JFrame {
             telnetActive = telnet;
         } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
             telnetActive = telnet2;
+        }else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("SSH")) {
+            telnetActive = ssh;
         }
 
     }//GEN-LAST:event_jTabbedPane2StateChanged
@@ -3115,7 +3116,21 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_CLITextArea3MouseClicked
 
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
-        // TODO add your handling code here:
+        //get command from typed text in to TextArea
+        String command;
+        if (evt.getKeyChar() == '\n') {
+
+            CLITextArea1.setCaretPosition(CLITextArea1.getText().length());
+            if (CLITextArea1.getText().indexOf('#') > (-1) && (CLITextArea1.getText().indexOf('>') < CLITextArea1.getText().indexOf('#'))) {
+                command = CLITextArea1.getText().substring(CLITextArea1.getText().lastIndexOf("#") + 1, CLITextArea1.getText().length());
+                telnetActive.sendCommand(command);
+            } else if (CLITextArea1.getText().indexOf('>') > (-1) && (CLITextArea1.getText().indexOf('>') > CLITextArea1.getText().indexOf('#'))) {
+                command = CLITextArea1.getText().substring(CLITextArea1.getText().lastIndexOf(">") + 1, CLITextArea1.getText().length());
+                telnetActive.sendCommand(command);
+            }
+        } else if (Character.isLetterOrDigit(evt.getKeyChar())) {
+            CLITextArea1.setCaretPosition(CLITextArea1.getText().length());
+        }
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
     private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
@@ -3127,12 +3142,12 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
-        PrintStream printStream = new PrintStream(new TextAreaOutputStream(CLITextArea3));
-        System.setOut(printStream);
+        final PrintStream outputSsh = new PrintStream(new TextAreaOutputStream(CLITextArea3));
+        
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                ssh.start(switchIPTextField3.getText(), Integer.parseInt(tcpPortTextField3.getText()));
+                ssh.start(switchIPTextField3.getText(), Integer.parseInt(tcpPortTextField3.getText()), outputSsh);
                 telnetActive=ssh;
                 
                 
