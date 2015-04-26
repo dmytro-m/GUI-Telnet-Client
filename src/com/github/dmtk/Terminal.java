@@ -1,14 +1,16 @@
 package com.github.dmtk;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
-public class Terminal {
+public abstract class Terminal {
 
     protected OutputStream streamOut;
+    protected boolean end_loop = false;
     protected byte[] buff = new byte[1024];
     protected ByteArrayInputStream in = new ByteArrayInputStream(buff);
     protected String cmd = "";
@@ -36,4 +38,8 @@ public class Terminal {
         cmd = "";
         return bytes;
     }
+    
+    public abstract void disconnect() throws IOException ;
+    
+    
 }

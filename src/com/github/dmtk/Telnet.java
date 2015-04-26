@@ -226,7 +226,7 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
             
         }
     }
-
+    @Override
     public void disconnect() throws IOException {
         end_loop = true;
         if (tc.isConnected()) {
@@ -272,8 +272,8 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
         }
     }
     
-    void print(String str){
+    /*void print(String str){
         this.out.setText(out.getText() + str + "\n");
-    }
+    }*/
 
 }
