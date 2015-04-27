@@ -46,7 +46,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        log();
+        
 
     }
 
@@ -2211,9 +2211,9 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
-            CLITextArea1.setText(checkoutput(CLITextArea1.getText()));
+            CLITextArea1.setText(filteroutput(CLITextArea1.getText()));
         } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
-            CLITextArea2.setText(checkoutput(CLITextArea2.getText()));
+            CLITextArea2.setText(filteroutput(CLITextArea2.getText()));
         }
 
     }//GEN-LAST:event_jButton23ActionPerformed
@@ -3590,7 +3590,7 @@ public class GUI extends javax.swing.JFrame {
         return jTextField13;
     }
 
-    public String checkoutput(String s) {
+    public String filteroutput(String s) {
 
         //erase textoutput from undefined symbols
         String checkString = "--- [Space] Next page, [Enter] Next line, [A] All, Others to exit ---";
@@ -3666,78 +3666,6 @@ public class GUI extends javax.swing.JFrame {
         vlanTextField.setText(host.getVlan());
     }
 
-    public static void checkVersion() {
-        Thread tr = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    boolean flag = true;
-                    DBConnect connect = new DBConnect();
-                    String ver = connect.getVersion();
-                    if (Double.parseDouble(ver) > 1) {
-                        String url = connect.getUrl();
-                        while (flag) {
-                            Object[] options = {"Yes"};
-                            int n = JOptionPane.showOptionDialog(GUI.getInstance(),
-                                    "New version is available " + ver + ". Do you want to download?",
-                                    "",
-                                    JOptionPane.YES_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE,
-                                    null, //do not use a custom Icon
-                                    options, //the titles of buttons
-                                    options[0]); //default button title
-                            if (n == 0) {
-                                MainClass.launchBrowser(url);
-                                Thread.sleep(10 * 1000);//periodically ones per 10 seconds remind about update
-                            } else {
-                                System.exit(0);//close app when user refuse update
-                            }
-                        }
-                    }
-
-                } catch (NumberFormatException | HeadlessException | InterruptedException ex) {
-
-                }
-
-            }
-        });
-        tr.start();
-    }
-
-    public void log() {
-        checkVersion();
-        Thread tr = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                DBConnect connect;
-                try {
-
-                    connect = new DBConnect();
-                    connect.setData();
-                    if (connect.selectMessage() != null) {
-                        Object[] options = {"Ok"};
-                        int n = JOptionPane.showOptionDialog(GUI.getInstance(),
-                                connect.selectMessage(),
-                                "",
-                                JOptionPane.YES_OPTION,
-                                JOptionPane.QUESTION_MESSAGE,
-                                null, //do not use a custom Icon
-                                options, //the titles of buttons
-                                options[0]); //default button title
-                        if (n != 0) {
-                            System.exit(0);//close application
-                        }
-                    }
-                } catch (NumberFormatException | HeadlessException  ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        tr.start();
-
-    }
-    
     String parseCommand(javax.swing.JTextArea textArea){
         
         return "";
