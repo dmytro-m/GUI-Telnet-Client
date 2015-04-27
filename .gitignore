@@ -1,2 +1,29 @@
 /Config.xml
-/dist/
+
+#Netbeans
+
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#Some files
+
+*.pdf
+*.doc
+*.docx
+*.djvu
