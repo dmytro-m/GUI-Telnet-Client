@@ -1,6 +1,5 @@
 package com.github.dmtk;
 
-import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -18,6 +17,7 @@ import javax.swing.text.DefaultCaret;
 public class GUI extends javax.swing.JFrame {
 
     private volatile static GUI uniqueGui;
+    
     private static Telnet telnet = null;
     private static Telnet telnet2 = null;
     private static Ssh ssh = new Ssh();
