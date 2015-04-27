@@ -2092,17 +2092,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x411;&#x456;&#x43b;&#x456;&#x43d;&#x433;"/>
+                <Property name="text" type="java.lang.String" value="Billing"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x422;&#x435;&#x43b;&#x43d;&#x435;&#x442;"/>
+                <Property name="text" type="java.lang.String" value="Terminal"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBox5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x417;&#x431;&#x435;&#x440;&#x435;&#x433;&#x442;&#x438; &#x43b;&#x43e;&#x433;&#x456;&#x43d; &#x456; &#x43f;&#x430;&#x440;&#x43e;&#x43b;&#x44c;"/>
+                <Property name="text" type="java.lang.String" value="Save login and passwd"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox5ActionPerformed"/>
@@ -2520,6 +2520,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="MyButtonUI.setupButtonUI(connectButton2);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="MyButtonUI.setupButtonUI(connectButton3);"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="loginButton3">
@@ -2531,6 +2532,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="MyButtonUI.setupButtonUI(loginButton2);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="MyButtonUI.setupButtonUI(loginButton3);"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="jButton61">
@@ -2559,6 +2561,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="MyButtonUI.setupButtonUI(jButton14);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

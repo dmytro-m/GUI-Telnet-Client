@@ -12,11 +12,14 @@ import java.util.Properties;
 
 public class DBConnect {
 
-    //private Connection con;
     private Statement st;
     private ResultSet rs;
 
     DBConnect() {
+        String primarydbserverIP = XMLConfigReader.read("primarydbserverIP");
+        
+        
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Properties connInfo = new Properties();
@@ -25,7 +28,7 @@ public class DBConnect {
             connInfo.put("useUnicode", "true");
             connInfo.put("charSet", "utf-8");
             connInfo.put("characterEncoding", "utf-8");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://" + XMLConfigReader.read("primarydbserverIP") + ":" + XMLConfigReader.read("primarydbserverPort") + "/" + XMLConfigReader.read("dbName"), connInfo);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://" + primarydbserverIP + ":" + XMLConfigReader.read("primarydbserverPort") + "/" + XMLConfigReader.read("dbName"), connInfo);
             st = conn.createStatement();
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Err" + ex);

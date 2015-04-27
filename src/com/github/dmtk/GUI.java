@@ -1,5 +1,6 @@
 package com.github.dmtk;
 
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -1629,11 +1630,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Білінг");
+        jLabel6.setText("Billing");
 
-        jLabel7.setText("Телнет");
+        jLabel7.setText("Terminal");
 
-        jCheckBox5.setText("Зберегти логін і пароль");
+        jCheckBox5.setText("Save login and passwd");
         jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox5ActionPerformed(evt);
@@ -1935,6 +1936,7 @@ public class GUI extends javax.swing.JFrame {
         tcpPortTextField3.setText("22");
         tcpPortTextField3.setToolTipText("Port for telnet connection");
 
+        MyButtonUI.setupButtonUI(connectButton3);
         connectButton3.setText("Connect");
         MyButtonUI.setupButtonUI(connectButton2);
         connectButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1943,6 +1945,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        MyButtonUI.setupButtonUI(loginButton3);
         loginButton3.setText("login");
         MyButtonUI.setupButtonUI(loginButton2);
         loginButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1962,6 +1965,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField1.setText("...switch ip");
         jTextField1.setPreferredSize(new java.awt.Dimension(61, 20));
 
+        MyButtonUI.setupButtonUI(jButton14);
         jButton14.setText("logout");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2117,7 +2121,7 @@ public class GUI extends javax.swing.JFrame {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), CLITextArea1, switchIPTextField);
+        telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), CLITextArea1);
         telnetActive = telnet;
         Thread myThready = new Thread(new Runnable() {
             @Override
@@ -2722,7 +2726,7 @@ public class GUI extends javax.swing.JFrame {
             }
         }
         if (telnet2 == null) {
-            telnet2 = new Telnet(switchIPTextField2.getText(), Integer.parseInt(jTextField20.getText()), CLITextArea2, switchIPTextField2);
+            telnet2 = new Telnet(switchIPTextField2.getText(), Integer.parseInt(jTextField20.getText()), CLITextArea2);
         }
         telnetActive = telnet2;
         Thread myThready = new Thread(new Runnable() {
@@ -2774,8 +2778,6 @@ public class GUI extends javax.swing.JFrame {
     private void CLITextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea2KeyPressed
         String command;
         if (evt.getKeyChar() == '\n') {
-
-            CLITextArea2.setCaretPosition(CLITextArea2.getText().length());
             if (CLITextArea2.getText().indexOf('#') > (-1) && (CLITextArea2.getText().indexOf('>') < CLITextArea2.getText().indexOf('#'))) {
                 command = CLITextArea2.getText().substring(CLITextArea2.getText().lastIndexOf("#") + 1, CLITextArea2.getText().length());
                 telnetActive.sendCommand(command);
@@ -3129,16 +3131,19 @@ public class GUI extends javax.swing.JFrame {
         String command;
         if (evt.getKeyChar() == '\n') {
 
-            CLITextArea1.setCaretPosition(CLITextArea1.getText().length());
-            if (CLITextArea1.getText().indexOf('#') > (-1) && (CLITextArea1.getText().indexOf('>') < CLITextArea1.getText().indexOf('#'))) {
-                command = CLITextArea1.getText().substring(CLITextArea1.getText().lastIndexOf("#") + 1, CLITextArea1.getText().length());
+            CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
+            if (CLITextArea3.getText().indexOf('#') > (-1) && (CLITextArea3.getText().indexOf('>') < CLITextArea3.getText().indexOf('#'))) {
+                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf("#") + 1, CLITextArea3.getText().length());
                 telnetActive.sendCommand(command);
-            } else if (CLITextArea1.getText().indexOf('>') > (-1) && (CLITextArea1.getText().indexOf('>') > CLITextArea1.getText().indexOf('#'))) {
-                command = CLITextArea1.getText().substring(CLITextArea1.getText().lastIndexOf(">") + 1, CLITextArea1.getText().length());
+            } else if (CLITextArea3.getText().indexOf('>') > (-1) && (CLITextArea3.getText().indexOf('>') > CLITextArea3.getText().indexOf('#'))) {
+                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf(">") + 1, CLITextArea3.getText().length());
+                telnetActive.sendCommand(command);
+            } else if (CLITextArea3.getText().indexOf('$') > (-1) && (CLITextArea3.getText().indexOf('$') > CLITextArea3.getText().indexOf('#'))) {
+                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf("$") + 1, CLITextArea3.getText().length());
                 telnetActive.sendCommand(command);
             }
         } else if (Character.isLetterOrDigit(evt.getKeyChar())) {
-            CLITextArea1.setCaretPosition(CLITextArea1.getText().length());
+            CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
         }
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
@@ -3156,7 +3161,7 @@ public class GUI extends javax.swing.JFrame {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String host  = JOptionPane.showInputDialog("Enter username@hostname",
+                String host = JOptionPane.showInputDialog("Enter username@hostname",
                         getjTextField10().getText()
                         + "@" + switchIPTextField3.getText());
                 String user = host.substring(0, host.indexOf('@'));
@@ -3616,36 +3621,30 @@ public class GUI extends javax.swing.JFrame {
             out = CLITextArea1;
         } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
             out = CLITextArea2;
+        } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("SSH")) {
+            out = CLITextArea3;
         }
         out.setText(out.getText() + command + "\n");
         for (int i = 4; i >= 0; i--) {
             out.setText(out.getText() + "wait " + (i + 1) + " seconds" + "\n");
             try {
                 Thread.sleep(1000);
-
             } catch (InterruptedException ex) {
                 Logger.getLogger(GUI.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-
             if (out.getText().contains("wait")) {
-
                 out.setText(out.getText().substring(0, out.getText().lastIndexOf("wait")));
-
             }
-
         }
-
         command = ecs.showCableTestResult(portTextField.getText());
         telnetActive.sendCommand(command);
 
     }
 
     public void initialiseHosts(List<Host> parsedHosts) {
-
         hosts = new ArrayList();
         List<String> box = new ArrayList();
-
         for (int i = 0; i < parsedHosts.size(); i++) {
             hosts.add(parsedHosts.get(i));
             box.add(String.valueOf(i + 1));
@@ -3668,9 +3667,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public static void checkVersion() {
-        Thread tr;
-        tr = new Thread(new Runnable() {
-
+        Thread tr = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -3680,9 +3677,9 @@ public class GUI extends javax.swing.JFrame {
                     if (Double.parseDouble(ver) > 1) {
                         String url = connect.getUrl();
                         while (flag) {
-                            Object[] options = {"Так"};
+                            Object[] options = {"Yes"};
                             int n = JOptionPane.showOptionDialog(GUI.getInstance(),
-                                    "Доступна нова версія " + ver + ". Завантажити?",
+                                    "New version is available " + ver + ". Do you want to download?",
                                     "",
                                     JOptionPane.YES_OPTION,
                                     JOptionPane.QUESTION_MESSAGE,
@@ -3691,14 +3688,14 @@ public class GUI extends javax.swing.JFrame {
                                     options[0]); //default button title
                             if (n == 0) {
                                 MainClass.launchBrowser(url);
-                                Thread.sleep(10 * 1000);
+                                Thread.sleep(10 * 1000);//periodically ones per 10 seconds remind about update
                             } else {
-                                System.exit(0);
+                                System.exit(0);//close app when user refuse update
                             }
                         }
                     }
 
-                } catch (Exception ex) {
+                } catch (NumberFormatException | HeadlessException | InterruptedException ex) {
 
                 }
 
@@ -3709,8 +3706,7 @@ public class GUI extends javax.swing.JFrame {
 
     public void log() {
         checkVersion();
-        Thread tr;
-        tr = new Thread(new Runnable() {
+        Thread tr = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -3733,15 +3729,21 @@ public class GUI extends javax.swing.JFrame {
                             System.exit(0);//close application
                         }
                     }
-                } catch (Exception ex) {
+                } catch (NumberFormatException | HeadlessException  ex) {
                     ex.printStackTrace();
-
                 }
-
             }
         });
         tr.start();
 
     }
-
+    
+    String parseCommand(javax.swing.JTextArea textArea){
+        
+        return "";
+    }
+    
+    
+    //serverIPTextField.setBackground(new Color(99, 177, 68));
+    
 }

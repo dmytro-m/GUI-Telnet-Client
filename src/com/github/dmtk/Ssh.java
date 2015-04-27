@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Ssh extends Terminal {
 
-    Session session;
+    private Session session;
 
     public void start(String host, int port, PrintStream output, String user, String password) {
 

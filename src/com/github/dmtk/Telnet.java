@@ -27,20 +27,18 @@ import java.io.PrintStream;
 public class Telnet extends Terminal implements Runnable, TelnetNotificationHandler {
 
     private static TelnetClient tc = null;
-    private static boolean end_loop = false;
     private String remoteip;
     private int remoteport;
     private JTextArea out;
-    private JTextField serverIPTextField;//for changing color of field
+    //private JTextField serverIPTextField;//for changing color of field
 
-    public Telnet(String remoteip, int remoteport, JTextArea out,JTextField serverIPTextField) {
+    public Telnet(String remoteip, int remoteport, JTextArea out) {
 
         this.remoteip = remoteip;
         this.remoteport = remoteport;
         this.out = out;
-        this.serverIPTextField = serverIPTextField;
-        
-        
+        //this.serverIPTextField = serverIPTextField;
+
     }
 
     public void execute() throws Exception {
@@ -70,11 +68,10 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
 
             try {
                 tc.connect(remoteip, remoteport);
-                Thread reader = new Thread(new Telnet(remoteip, remoteport, out,serverIPTextField));
-                tc.registerNotifHandler(new Telnet(remoteip, remoteport, out,serverIPTextField));
+                Thread reader = new Thread(new Telnet(remoteip, remoteport, out));
+                tc.registerNotifHandler(new Telnet(remoteip, remoteport, out));
                 reader.start();
                 OutputStream outstr = tc.getOutputStream();
-                serverIPTextField.setBackground(new Color(99, 177, 68));
                 byte[] buff = new byte[1024];
                 ByteArrayInputStream in;
                 int ret_read = 0;
@@ -109,7 +106,7 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
                                     SimpleOptionHandler opthand = new SimpleOptionHandler(opcode, initlocal, initremote,
                                             acceptlocal, acceptremote);
                                     tc.addOptionHandler(opthand);
-                                } catch (Exception e) {
+                                } catch (NumberFormatException | InvalidTelnetOptionException e) {
                                     if (e instanceof InvalidTelnetOptionException) {
                                         System.err.println("Error registering option: " + e.getMessage());
                                     } else {
@@ -157,12 +154,11 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
                     tc.disconnect();
                 } catch (IOException e) {
                     System.err.println("Exception while connecting:" + e.getMessage());
-                    serverIPTextField.setBackground(Color.WHITE);
-                    
+
                 }
             } catch (IOException e) {
                 System.err.println("Exception while connecting:" + e.getMessage());
-                serverIPTextField.setBackground(Color.WHITE);
+
             }
         }
     }
@@ -215,17 +211,16 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
             } while (ret_read >= 0);
         } catch (Exception e) {
             System.err.println("Exception while reading socket:" + e.getMessage());
-            serverIPTextField.setBackground(Color.WHITE);
-            
+
         }
         try {
             tc.disconnect();
         } catch (Exception e) {
             System.err.println("Exception while closing telnet:" + e.getMessage());
-            serverIPTextField.setBackground(Color.WHITE);
-            
+
         }
     }
+
     @Override
     public void disconnect() throws IOException {
         end_loop = true;
@@ -253,10 +248,10 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
         try {
             while ((s = stdInput.readLine()) != null) {
 
-                String newString =new String(s.getBytes("windows-1251"), "cp866");//change encoding
+                String newString = new String(s.getBytes("windows-1251"), "cp866");//change encoding
                 System.out.println(newString);
                 //out.setText(out.getText()+ "\n" + newString);
-                
+
             }
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,9 +266,5 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    /*void print(String str){
-        this.out.setText(out.getText() + str + "\n");
-    }*/
 
 }
