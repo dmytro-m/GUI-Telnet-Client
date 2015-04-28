@@ -1,6 +1,5 @@
 package com.github.dmtk;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
@@ -14,7 +13,6 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import org.apache.commons.net.telnet.EchoOptionHandler;
 import org.apache.commons.net.telnet.InvalidTelnetOptionException;
 import org.apache.commons.net.telnet.SimpleOptionHandler;
@@ -30,18 +28,18 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
     private String remoteip;
     private int remoteport;
     private JTextArea out;
-    //private JTextField serverIPTextField;//for changing color of field
+    
 
     public Telnet(String remoteip, int remoteport, JTextArea out) {
 
         this.remoteip = remoteip;
         this.remoteport = remoteport;
         this.out = out;
-        //this.serverIPTextField = serverIPTextField;
+        
 
     }
 
-    public void execute() throws Exception {
+    public void execute(){
 
         end_loop = false;
         FileOutputStream fout = null;
@@ -84,10 +82,13 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
                         if (ret_read > 0) {
                             if ((new String(buff, 0, ret_read)).startsWith("AYT")) {
                                 try {
-                                    System.out.println("Sending AYT");
                                     System.out.println("AYT response:" + tc.sendAYT(5000));
                                 } catch (IOException e) {
                                     System.err.println("Exception waiting AYT response: " + e.getMessage());
+                                } catch (IllegalArgumentException ex) {
+                                    Logger.getLogger(Telnet.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(Telnet.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             } else if ((new String(buff, 0, ret_read)).startsWith("OPT")) {
                                 System.out.println("Status of options:");
@@ -228,43 +229,6 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
             tc.disconnect();
         }
 
-    }
-
-    static synchronized void pingClient(PrintStream stream, String ip) {
-
-        List<String> commands = new ArrayList<String>();
-        commands.add("ping");
-        commands.add(ip);
-        String s = null;
-        ProcessBuilder pb = new ProcessBuilder(commands);
-        Process process = null;
-        try {
-            process = pb.start();
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        try {
-            while ((s = stdInput.readLine()) != null) {
-
-                String newString = new String(s.getBytes("windows-1251"), "cp866");//change encoding
-                System.out.println(newString);
-                //out.setText(out.getText()+ "\n" + newString);
-
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // read any errors from the attempted command
-        try {
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-                //out.setText(out.getText() + "/n");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
