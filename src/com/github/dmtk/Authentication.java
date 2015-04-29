@@ -80,58 +80,34 @@ public class Authentication implements Serializable {
         new File("temp.out").delete();
     }
 
-    /**
-     * @return the loginTelnet
-     */
     public String getLoginTerminal() {
         return loginTerminal;
     }
 
-    /**
-     * @param loginTerminal the loginTelnet to set
-     */
     public void setLoginTerminal(String loginTerminal) {
         this.loginTerminal = loginTerminal;
     }
 
-    /**
-     * @return the passwdTelnet
-     */
     public String getPasswdTerminal() {
         return passwdTerminal;
     }
 
-    /**
-     * @param passwdTerminal the passwdTelnet to set
-     */
     public void setPasswdTerminal(String passwdTerminal) {
         this.passwdTerminal = passwdTerminal;
     }
 
-    /**
-     * @return the loginBilling
-     */
     public String getLoginBilling() {
         return loginBilling;
     }
 
-    /**
-     * @param loginBilling the loginBilling to set
-     */
     public void setLoginBilling(String loginBilling) {
         this.loginBilling = loginBilling;
     }
 
-    /**
-     * @return the passwdBilling
-     */
     public String getPasswdBilling() {
         return passwdBilling;
     }
 
-    /**
-     * @param passwdBilling the passwdBilling to set
-     */
     public void setPasswdBilling(String passwdBilling) {
         this.passwdBilling = passwdBilling;
     }

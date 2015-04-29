@@ -10,72 +10,42 @@ public class Host {
     private String port;
     private String vlan;
 
-    /**
-     * @return the id
-     */
-    public String getId() {
+        public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the mac
-     */
     public String getMac() {
         return mac;
     }
 
-    /**
-     * @param mac the mac to set
-     */
     public void setMac(String mac) {
         this.mac = mac;
     }
 
-    /**
-     * @return the ip
-     */
     public String getIp() {
         return ip;
     }
 
-    /**
-     * @param ip the ip to set
-     */
     public void setIp(String ip) {
         this.ip = ip;
     }
 
-    /**
-     * @return the port
-     */
     public String getPort() {
         return port;
     }
 
-    /**
-     * @param port the port to set
-     */
     public void setPort(String port) {
         this.port = port;
     }
 
-    /**
-     * @return the vlan
-     */
     public String getVlan() {
         return vlan;
     }
 
-    /**
-     * @param vlan the vlan to set
-     */
     public void setVlan(String vlan) {
         this.vlan = vlan;
     }

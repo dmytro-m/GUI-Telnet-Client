@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.github.dmtk;
 
 import java.io.BufferedReader;
@@ -14,10 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author asus
- */
 public class Pinger {
     static synchronized void pingClient(PrintStream stream, String ip) {
 
@@ -38,9 +29,7 @@ public class Pinger {
             while ((s = stdInput.readLine()) != null) {
 
                 String newString = new String(s.getBytes("windows-1251"), "cp866");//change encoding
-                System.out.println(newString);
-                //out.setText(out.getText()+ "\n" + newString);
-
+                stream.println(newString);
             }
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,8 +37,7 @@ public class Pinger {
         // read any errors from the attempted command
         try {
             while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-                //out.setText(out.getText() + "/n");
+                stream.println(s);                
             }
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
