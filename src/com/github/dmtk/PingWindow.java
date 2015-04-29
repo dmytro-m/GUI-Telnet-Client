@@ -1,9 +1,5 @@
 package com.github.dmtk;
 
-/**
- *
- * @author asus
- */
 public class PingWindow extends javax.swing.JFrame {
 
     public PingWindow() {

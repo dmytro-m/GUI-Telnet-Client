@@ -1,16 +1,17 @@
 package com.github.dmtk;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.log4j.Logger;
 
 public class MainClass {
 
     private static GUI gui;
-
+    final static Logger logger = Logger.getLogger(MainClass.class);
     public static void main(String[] argv) throws IOException, UnsupportedLookAndFeelException, Exception {
+        
+        
         try {
             for (UIManager.LookAndFeelInfo info : UIManager
                     .getInstalledLookAndFeels()) {
@@ -20,14 +21,12 @@ public class MainClass {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            
         }
         gui = GUI.getInstance();
         gui.setVisible(true);
-
     }
-
+    
     public static void launchBrowser(String url) {
         String os = System.getProperty("os.name").toLowerCase();
         Runtime rt = Runtime.getRuntime();
