@@ -12,16 +12,6 @@
             <version>2.2</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openengsb.wrapped</groupId>
-            <artifactId>com.jcraft.jsch-all</artifactId>
-            <version>1.1.0.M2</version>
-        </dependency>
-        <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
             <version>2.2</version>
@@ -30,6 +20,11 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium</artifactId>
             <version>2.0b1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcraft.jsch</groupId>
+            <artifactId>ssh</artifactId>
+            <version>0.1</version>
         </dependency>
     </dependencies>
     <properties>
