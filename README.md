@@ -1,2 +1,2 @@
 # GUI-Telnet-Client
-![alt tag](http://url/to/img.png)
+![alt tag](https://github.com/dmtk/GUI-Telnet-Client/blob/master/images/appearance.PNG)
