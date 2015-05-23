@@ -296,7 +296,7 @@ public class EdgeCoreSwitch implements Modem {
         if (enable) {
             command = "configure\ninterface ethernet 1/" + port + "\nip source-guard sip-mac\nend";
         } else if (!enable) {
-            command = "configure\ninterface ethernet 1/" + port + "\nno ip source-guard sip-mac\nend";
+            command = "configure\ninterface ethernet 1/" + port + "\nno ip source-guard\nend";
         }
         return command;
     }
