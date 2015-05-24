@@ -2941,7 +2941,15 @@ public class GUI extends javax.swing.JFrame {
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
         //get command from typed text in to TextArea
         String command;
-        if (evt.getKeyChar() == '\n') {
+        
+        try {
+            parseCommand(CLITextArea1, evt.getKeyChar());            
+        } catch (java.lang.NullPointerException e) {
+            //do nothing when command is null   
+        }
+        
+        
+        /*if (evt.getKeyChar() == '\n') {
 
             CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
             if (CLITextArea3.getText().indexOf('#') > (-1) && (CLITextArea3.getText().indexOf('>') < CLITextArea3.getText().indexOf('#'))) {
@@ -2956,7 +2964,7 @@ public class GUI extends javax.swing.JFrame {
             }
         } else if (Character.isLetterOrDigit(evt.getKeyChar())) {
             CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
-        }
+        }*/
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
     private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
@@ -2968,6 +2976,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
+        
         final PrintStream outputSsh = new PrintStream(new TextAreaOutputStream(CLITextArea3));
 
         Thread thread = new Thread(new Runnable() {
@@ -3480,11 +3489,16 @@ public class GUI extends javax.swing.JFrame {
             } else if (TextArea.getText().indexOf('>') > (-1) && (TextArea.getText().indexOf('>') > TextArea.getText().indexOf('#'))) {
                 command = TextArea.getText().substring(TextArea.getText().lastIndexOf(">") + 1, TextArea.getText().length());
                 telnetActive.sendCommand(command);
+            } else if (TextArea.getText().indexOf('$') > (-1) && (TextArea.getText().indexOf('$') > TextArea.getText().indexOf('#'))) {
+                command = TextArea.getText().substring(TextArea.getText().lastIndexOf("$") + 1, TextArea.getText().length());
+                telnetActive.sendCommand(command);
             }
         } else if (Character.isLetterOrDigit(ch)) {
             TextArea.setCaretPosition(TextArea.getText().length());
         }
         return command;
     }
-    //serverIPTextField.setBackground(new Color(99, 177, 68));
+   
+    
+    
 }
