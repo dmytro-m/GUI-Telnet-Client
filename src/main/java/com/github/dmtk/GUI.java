@@ -19,7 +19,6 @@ public class GUI extends javax.swing.JFrame {
     private volatile static GUI uniqueGui;
 
     private static Telnet telnet = null;
-    private static Telnet telnet2 = null;
     private static Ssh ssh = new Ssh();
     private Authentication au;
     public String hostID;
@@ -2009,6 +2008,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
 
+        final PrintStream outputTelnet = new PrintStream(new TextAreaOutputStream(CLITextArea1));
         if (telnet != null) {
             try {
                 telnet.disconnect();
@@ -2016,7 +2016,7 @@ public class GUI extends javax.swing.JFrame {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), CLITextArea1);
+        telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), outputTelnet);
         telnetActive = telnet;
         Thread myThready = new Thread(new Runnable() {
             @Override
@@ -2024,9 +2024,7 @@ public class GUI extends javax.swing.JFrame {
 
                 try {
                     telnet.execute();
-                
                     CLITextArea1.setText(CLITextArea1.getText() + "Connection \n");
-
                 } catch (Exception ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -2621,8 +2619,6 @@ public class GUI extends javax.swing.JFrame {
     private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
             telnetActive = telnet;
-        } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
-            telnetActive = telnet2;
         } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("SSH")) {
             telnetActive = ssh;
         }
@@ -2755,8 +2751,6 @@ public class GUI extends javax.swing.JFrame {
 
         String command = ecs.configureIpSourceGuardBindingTable(macTextField.getText(), Integer.parseInt(vlanTextField.getText()), ipTextField.getText(), Integer.parseInt(portTextField.getText()), jCheckBox7.isSelected());
         telnetActive.sendCommand(command);
-
-
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
     private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
@@ -2767,7 +2761,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         Thread myThread;
-
         myThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -2778,15 +2771,11 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-
         String command = ecs.changeMediaType(portTextField.getText(), jComboBox3.getSelectedItem().toString());
         telnetActive.sendCommand(command);
-
-
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-
         String command = ecs.changeNegotiation(portTextField.getText(), jCheckBox4.isSelected());
         telnetActive.sendCommand(command);
         try {
@@ -2802,7 +2791,6 @@ public class GUI extends javax.swing.JFrame {
 
         String command = ecs.changePortState(portTextField.getText(), jCheckBox3.isSelected());
         telnetActive.sendCommand(command);
-
         try {
             Thread.sleep(100);
 

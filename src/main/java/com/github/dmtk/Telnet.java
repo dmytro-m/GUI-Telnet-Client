@@ -5,10 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextArea;
 import org.apache.commons.net.telnet.EchoOptionHandler;
 import org.apache.commons.net.telnet.InvalidTelnetOptionException;
 import org.apache.commons.net.telnet.SimpleOptionHandler;
@@ -23,10 +23,10 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
     private static TelnetClient tc = null;
     private String remoteip;
     private int remoteport;
-    private JTextArea out;
+    private PrintStream out;
     
 
-    public Telnet(String remoteip, int remoteport, JTextArea out) {
+    public Telnet(String remoteip, int remoteport,PrintStream out) {
 
         this.remoteip = remoteip;
         this.remoteport = remoteport;
@@ -203,7 +203,7 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
                 ret_read = instr.read(buff);
                 if (ret_read > 0) {
                     System.out.print(new String(buff, 0, ret_read));
-                    out.setText(out.getText() + new String(buff, 0, ret_read));
+                    out.print(new String(buff, 0, ret_read));
                 }
             } while (ret_read >= 0);
         } catch (Exception e) {
