@@ -2098,7 +2098,7 @@ public class GUI extends javax.swing.JFrame {
         }
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
             CLITextArea1.setText(filteroutput(CLITextArea1.getText()));
-        } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #2")) {
+        } else if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("SSH")) {
             CLITextArea3.setText(filteroutput(CLITextArea3.getText()));
         }
 
@@ -2837,7 +2837,6 @@ public class GUI extends javax.swing.JFrame {
                 PingWindow p = new PingWindow();
                 p.setVisible(true);
                 PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
-                System.setOut(printStream);
                 Pinger.pingClient(printStream, switchIPTextField.getText());
             }
 
@@ -2939,32 +2938,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_CLITextArea3MouseClicked
 
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
-        //get command from typed text in to TextArea
-        String command;
+        parseCommand(CLITextArea3, evt.getKeyChar());            
         
-        try {
-            parseCommand(CLITextArea1, evt.getKeyChar());            
-        } catch (java.lang.NullPointerException e) {
-            //do nothing when command is null   
-        }
-        
-        
-        /*if (evt.getKeyChar() == '\n') {
-
-            CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
-            if (CLITextArea3.getText().indexOf('#') > (-1) && (CLITextArea3.getText().indexOf('>') < CLITextArea3.getText().indexOf('#'))) {
-                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf("#") + 1, CLITextArea3.getText().length());
-                telnetActive.sendCommand(command);
-            } else if (CLITextArea3.getText().indexOf('>') > (-1) && (CLITextArea3.getText().indexOf('>') > CLITextArea3.getText().indexOf('#'))) {
-                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf(">") + 1, CLITextArea3.getText().length());
-                telnetActive.sendCommand(command);
-            } else if (CLITextArea3.getText().indexOf('$') > (-1) && (CLITextArea3.getText().indexOf('$') > CLITextArea3.getText().indexOf('#'))) {
-                command = CLITextArea3.getText().substring(CLITextArea3.getText().lastIndexOf("$") + 1, CLITextArea3.getText().length());
-                telnetActive.sendCommand(command);
-            }
-        } else if (Character.isLetterOrDigit(evt.getKeyChar())) {
-            CLITextArea3.setCaretPosition(CLITextArea3.getText().length());
-        }*/
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
     private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
@@ -3028,7 +3003,17 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButton3ActionPerformed
 
     private void jButton61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton61ActionPerformed
-        // TODO add your handling code here:
+        Thread myThready = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PingWindow p = new PingWindow();
+                p.setVisible(true);
+                PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
+                Pinger.pingClient(printStream, jTextField1.getText());
+            }
+
+        });
+        myThready.start();
     }//GEN-LAST:event_jButton61ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
