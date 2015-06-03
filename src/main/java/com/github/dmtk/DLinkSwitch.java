@@ -18,7 +18,7 @@ public class DLinkSwitch implements Modem {
     }
 
     public String showMACAddressTable(String port) {
-        return "show fdb";
+        return "show fdb" + port;
     }
 
     public String showMACAddressTableMAC(String mac) {
