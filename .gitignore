@@ -1,5 +1,5 @@
-/Config.xml
-
+Config.xml
+temp.out
 #Netbeans
 
 nbproject/private/
@@ -9,6 +9,7 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+
 .nb-gradle/
 
 *.class

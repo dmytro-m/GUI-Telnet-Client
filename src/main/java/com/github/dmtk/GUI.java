@@ -13,29 +13,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GUI extends javax.swing.JFrame {
 
     private volatile static GUI uniqueGui;
 
-    private static Telnet telnet = null;
-    private static Ssh ssh = new Ssh();
+    private Telnet telnet = null;
+    private Ssh ssh = new Ssh();
     private Authentication au;
-    public String hostID;
+    private String selectedHostID;
     private List<Host> hosts = new ArrayList();
-    private static Terminal telnetActive = null;
-    private boolean repeatClean = true;
+    private Terminal telnetActive = null;
     private EdgeCoreSwitch ecs = new EdgeCoreSwitch();
     private DLinkSwitch dls = new DLinkSwitch();
     private BDCOMOlt bdt = new BDCOMOlt();
-    private String ctrlC = "\003";
+    private final String ctrlC = "\003";
 
     private GUI() {
 
         initComponents();
         DefaultCaret caret = (DefaultCaret) CLITextArea1.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        
 
         try {
             au = new Authentication(this);
@@ -2052,10 +2052,9 @@ public class GUI extends javax.swing.JFrame {
 
     private void CLITextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea1KeyPressed
 
-        try {
-            parseCommand(CLITextArea1, evt.getKeyChar());            
-        } catch (java.lang.NullPointerException e) {
-            //do nothing when command is null   
+        String command = parseCommand(CLITextArea1, evt.getKeyChar());
+        if (command != null) {
+            telnetActive.sendCommand(command);
         }
 
 
@@ -2911,7 +2910,7 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        command = ctrlC;//Ctrl+C
+        command = ctrlC;
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton44ActionPerformed
 
@@ -2926,8 +2925,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_CLITextArea3MouseClicked
 
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
-        parseCommand(CLITextArea3, evt.getKeyChar());            
-        
+
+        String command = parseCommand(CLITextArea3, evt.getKeyChar());
+        if (command != null) {
+            telnetActive.sendCommand(command);
+        }
+
+
     }//GEN-LAST:event_CLITextArea3KeyPressed
 
     private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
@@ -2939,7 +2943,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
-        
+
         final PrintStream outputSsh = new PrintStream(new TextAreaOutputStream(CLITextArea3));
 
         Thread thread = new Thread(new Runnable() {
@@ -2986,12 +2990,12 @@ public class GUI extends javax.swing.JFrame {
             Logger.getLogger(GUI.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        command = ctrlC;//Ctrl+C
+        command = ctrlC;
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_loginButton3ActionPerformed
 
     private void jButton61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton61ActionPerformed
-        Thread myThready = new Thread(new Runnable() {
+        Thread pingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 PingWindow p = new PingWindow();
@@ -3001,7 +3005,7 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
-        myThready.start();
+        pingThread.start();
     }//GEN-LAST:event_jButton61ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -3177,24 +3181,10 @@ public class GUI extends javax.swing.JFrame {
     }
 
     /**
-     * @param jPasswordField1 the jPasswordField1 to set
-     */
-    public void setjPasswordField1(javax.swing.JPasswordField jPasswordField1) {
-        this.jPasswordField1 = jPasswordField1;
-    }
-
-    /**
      * @return the jPasswordField2
      */
     public javax.swing.JPasswordField getjPasswordField2() {
         return jPasswordField2;
-    }
-
-    /**
-     * @param jPasswordField2 the jPasswordField2 to set
-     */
-    public void setjPasswordField2(javax.swing.JPasswordField jPasswordField2) {
-        this.jPasswordField2 = jPasswordField2;
     }
 
     /**
@@ -3205,73 +3195,10 @@ public class GUI extends javax.swing.JFrame {
     }
 
     /**
-     * @param jTextField9 the jTextField9 to set
-     */
-    public void setjTextField9(javax.swing.JTextField jTextField9) {
-        this.jTextField9 = jTextField9;
-    }
-
-    /**
      * @return the jTextField10
      */
     public javax.swing.JTextField getjTextField10() {
         return jTextField10;
-    }
-
-    /**
-     * @param jTextField10 the jTextField10 to set
-     */
-    public void setjTextField10(javax.swing.JTextField jTextField10) {
-        this.jTextField10 = jTextField10;
-    }
-
-    /**
-     * @return the jLabel1
-     */
-    public javax.swing.JLabel getjLabel1() {
-        return jLabel1;
-    }
-
-    /**
-     * @return the jLabel2
-     */
-    public javax.swing.JLabel getjLabel2() {
-        return jLabel2;
-    }
-
-    /**
-     * @return the jLabel3
-     */
-    public javax.swing.JLabel getjLabel3() {
-        return jLabel3;
-    }
-
-    /**
-     * @return the jLabel4
-     */
-    public javax.swing.JLabel getjLabel4() {
-        return jLabel4;
-    }
-
-    /**
-     * @return the jLabel5
-     */
-    public javax.swing.JLabel getjLabel5() {
-        return jLabel5;
-    }
-
-    /**
-     * @return the jLabel6
-     */
-    public javax.swing.JLabel getjLabel6() {
-        return jLabel6;
-    }
-
-    /**
-     * @return the jLabel7
-     */
-    public javax.swing.JLabel getjLabel7() {
-        return jLabel7;
     }
 
     /**
@@ -3281,23 +3208,6 @@ public class GUI extends javax.swing.JFrame {
         return vlanTextField;
     }
 
-    /**
-     * @return the jTextField8
-     */
-    public javax.swing.JTextField getjTextField8() {
-        return jTextField8;
-    }
-
-    /**
-     * @return the jButton1
-     */
-    public javax.swing.JButton getjButton1() {
-        return connectButton;
-    }
-
-    /**
-     * @return the jTextArea1
-     */
     public javax.swing.JTextArea getjTextArea1() {
         return CLITextArea1;
     }
@@ -3339,41 +3249,6 @@ public class GUI extends javax.swing.JFrame {
      */
     public javax.swing.JTextField getjTextField5() {
         return switchIPTextField;
-    }
-
-    /**
-     * @return the jTextField6
-     */
-    public javax.swing.JTextField getjTextField6() {
-        return jTextField6;
-    }
-
-    /**
-     * @return the jTextField14
-     */
-    public javax.swing.JTextField getjTextField14() {
-        return jTextField14;
-    }
-
-    /**
-     * @return the jTextField11
-     */
-    public javax.swing.JTextField getjTextField11() {
-        return jTextField11;
-    }
-
-    /**
-     * @return the jTextField12
-     */
-    public javax.swing.JTextField getjTextField12() {
-        return jTextField12;
-    }
-
-    /**
-     * @return the jTextField13
-     */
-    public javax.swing.JTextField getjTextField13() {
-        return jTextField13;
     }
 
     public String filteroutput(String s) {
@@ -3441,10 +3316,9 @@ public class GUI extends javax.swing.JFrame {
     public void changeHost() {
         Host host;
         int i = Integer.parseInt(String.valueOf(jComboBox6.getSelectedItem()));
-        System.out.println(Integer.parseInt(String.valueOf(jComboBox6.getSelectedItem())) + " " + i);
         host = hosts.get(i - 1);
         System.out.println(host);
-        hostID = host.getId();
+        selectedHostID = host.getId();
         macTextField.setText(host.getMac());
         ipTextField.setText(host.getIp());
         portTextField.setText(host.getPort());
@@ -3452,26 +3326,25 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private String parseCommand(javax.swing.JTextArea TextArea, char ch) {
-        String command = null;
-        if (ch == '\n') {
 
-            TextArea.setCaretPosition(TextArea.getText().length());
-            if (TextArea.getText().indexOf('#') > (-1) && (TextArea.getText().indexOf('>') < TextArea.getText().indexOf('#'))) {
-                command = TextArea.getText().substring(TextArea.getText().lastIndexOf("#") + 1, TextArea.getText().length());
-                telnetActive.sendCommand(command);
-            } else if (TextArea.getText().indexOf('>') > (-1) && (TextArea.getText().indexOf('>') > TextArea.getText().indexOf('#'))) {
-                command = TextArea.getText().substring(TextArea.getText().lastIndexOf(">") + 1, TextArea.getText().length());
-                telnetActive.sendCommand(command);
-            } else if (TextArea.getText().indexOf('$') > (-1) && (TextArea.getText().indexOf('$') > TextArea.getText().indexOf('#'))) {
-                command = TextArea.getText().substring(TextArea.getText().lastIndexOf("$") + 1, TextArea.getText().length());
-                telnetActive.sendCommand(command);
+        String command = null;
+
+        if (Character.isLetterOrDigit(ch) || ch == '\n') {
+            String terminalText = TextArea.getText();
+            TextArea.setCaretPosition(terminalText.length());
+            if (ch == '\n') {
+
+                String pattern = "[>,#,\\$].*$";
+                Pattern r = Pattern.compile(pattern);
+                Matcher m = r.matcher(terminalText);
+                if (m.find()) {
+                    command = m.group(0).substring(1);
+
+                }
+
             }
-        } else if (Character.isLetterOrDigit(ch)) {
-            TextArea.setCaretPosition(TextArea.getText().length());
         }
         return command;
     }
-   
-    
-    
+
 }
