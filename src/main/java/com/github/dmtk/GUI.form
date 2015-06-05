@@ -1301,8 +1301,12 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jCheckBox18" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                                  <Component id="jTextField18" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Component id="jCheckBox18" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jTextField18" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton74" max="32767" attributes="0"/>
@@ -1402,6 +1406,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jButton72" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -1421,6 +1426,7 @@
                           <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton21" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1691,8 +1697,11 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField18">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x2116;vlan"/>
+                <Property name="text" type="java.lang.String" value="vlan#"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField18ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton73">
               <Properties>
@@ -1731,6 +1740,14 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="MyButtonUI.setupButtonUI(jButton75);"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="vlanId"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -170,6 +170,7 @@ public class GUI extends javax.swing.JFrame {
         jButton74 = new javax.swing.JButton();
         jCheckBox18 = new javax.swing.JCheckBox();
         jButton75 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jButton46 = new javax.swing.JButton();
         jButton51 = new javax.swing.JButton();
@@ -1252,7 +1253,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField18.setText("№vlan");
+        jTextField18.setText("vlan#");
+        jTextField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField18ActionPerformed(evt);
+            }
+        });
 
         jButton73.setText("add vlan on port");
         MyButtonUI.setupButtonUI(jButton73);
@@ -1277,6 +1283,13 @@ public class GUI extends javax.swing.JFrame {
         jButton75.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton75ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.setText("vlanId");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
             }
         });
 
@@ -1314,7 +1327,10 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox18, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton74, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1391,7 +1407,8 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton72)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton73)
                         .addGap(0, 0, 0)
@@ -1404,7 +1421,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton20)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton21)))
+                    .addComponent(jButton21))
+                .addGap(53, 53, 53))
         );
 
         commandTabbedPane1.addTab("D-Link", jPanel1);
@@ -1734,7 +1752,6 @@ public class GUI extends javax.swing.JFrame {
 
         MyButtonUI.setupButtonUI(connectButton3);
         connectButton3.setText("Connect");
-        
         connectButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 connectButton3ActionPerformed(evt);
@@ -1743,7 +1760,6 @@ public class GUI extends javax.swing.JFrame {
 
         MyButtonUI.setupButtonUI(loginButton3);
         loginButton3.setText("login");
-        
         loginButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButton3ActionPerformed(evt);
@@ -1751,7 +1767,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jButton61.setText("ping switch");
-         jButton61.addActionListener(new java.awt.event.ActionListener() {
+        jButton61.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton61ActionPerformed(evt);
             }
@@ -2494,18 +2510,18 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton73ActionPerformed
 
-        String command = dls.addVlanToPort(Integer.parseInt(portTextField.getText()), Integer.parseInt(jTextField18.getText()), jCheckBox18.isSelected());
+        String command = dls.addVlanToPort(Integer.parseInt(portTextField.getText()), jTextField3.getText(), jCheckBox18.isSelected());
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton73ActionPerformed
 
     private void jButton71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton71ActionPerformed
-        String command = dls.addVlanToSwitch(Integer.parseInt(jTextField18.getText()));
+        String command = dls.addVlanToSwitch(jTextField3.getText(), Integer.parseInt(jTextField18.getText()));
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton71ActionPerformed
 
     private void jButton72ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton72ActionPerformed
-        String command = dls.removeVlanFromSwitch(Integer.parseInt(jTextField18.getText()));
+        String command = dls.removeVlanFromSwitch(jTextField3.getText());
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton72ActionPerformed
@@ -2521,7 +2537,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
     private void jButton74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton74ActionPerformed
-        String command = dls.removeVlanFromPort(Integer.parseInt(portTextField.getText()), Integer.parseInt(jTextField18.getText()));
+        String command = dls.removeVlanFromPort(Integer.parseInt(portTextField.getText()), jTextField3.getText());
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton74ActionPerformed
@@ -2598,7 +2614,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void idTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idTextFieldKeyPressed
         if (!"".equals(jLabel2.getText())) {//erase data from fields 
-            jLabel2.setText("");
+            getjLabel2().setText("");
             ipTextField.setText("");
             macTextField.setText("");
             portTextField.setText("");
@@ -3013,6 +3029,14 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField18ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CLITerminal1;
@@ -3159,6 +3183,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
@@ -3173,6 +3198,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField vlanTextField;
     // End of variables declaration//GEN-END:variables
 
+    
+    
     /**
      * @return the jPasswordField1
      */
@@ -3345,6 +3372,13 @@ public class GUI extends javax.swing.JFrame {
             }
         }
         return command;
+    }
+
+    /**
+     * @return the jLabel2
+     */
+    public javax.swing.JLabel getjLabel2() {
+        return jLabel2;
     }
 
 }

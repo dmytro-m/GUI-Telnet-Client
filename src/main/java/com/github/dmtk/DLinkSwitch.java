@@ -127,28 +127,29 @@ public class DLinkSwitch implements Modem {
         return "show address_binding blocked all";
     }
 
-    public String addVlanToSwitch(int vlan) {
-        return "create vlan " + vlan;
+    public String addVlanToSwitch(String vlanId, int vlan) {
+        
+        return "create vlan " + vlanId + " tag " + vlan;
     }
 
-    public String removeVlanFromSwitch(int vlan) {
-        return "delete vlan vlanid " + vlan;
+    public String removeVlanFromSwitch(String vlanId) {
+        return "delete vlan vlanid " + vlanId;
     }
 
-    public String addVlanToPort(int port, int vlan, boolean tagged) {
+    public String addVlanToPort(int port, String vlanId, boolean tagged) {
         String command = null;
         if (tagged) {
-            command = "config vlan vlanid " + vlan + " add tagged " + port;
+            command = "config vlan " + vlanId + " add tagged " + port;
 
         } else if (!tagged) {
-            command = "config vlan vlanid " + vlan + " add untagged " + port;
+            command = "config vlan " + vlanId + " add untagged " + port;
 
         }
         return command;
     }
 
-    public String removeVlanFromPort(int port, int vlan) {
-       return "config vlan vlanid " + vlan + " delete " + port;
+    public String removeVlanFromPort(int port, String vlanId) {
+        return "config vlan" + vlanId + " delete " + port;
     }
 
     public String showDhcpRelay() {
