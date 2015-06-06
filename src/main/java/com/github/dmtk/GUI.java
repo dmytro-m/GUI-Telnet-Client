@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class GUI extends javax.swing.JFrame {
 
     private volatile static GUI uniqueGui;
-
+    
     private Telnet telnet = null;
     private Ssh ssh = new Ssh();
     private Authentication au;
@@ -42,7 +42,7 @@ public class GUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
     }
@@ -3198,8 +3198,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField vlanTextField;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     /**
      * @return the jPasswordField1
      */
@@ -3380,5 +3378,5 @@ public class GUI extends javax.swing.JFrame {
     public javax.swing.JLabel getjLabel2() {
         return jLabel2;
     }
-
+    
 }

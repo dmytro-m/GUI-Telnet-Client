@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 public class MainClass {
 
     private static GUI gui;
-    final static Logger logger = Logger.getLogger(MainClass.class);
+    private final static Logger log = Logger.getLogger(MainClass.class);
     public static void main(String[] argv) throws IOException, UnsupportedLookAndFeelException, Exception {
         
-        
+        log.info("Start");
         try {
             for (UIManager.LookAndFeelInfo info : UIManager
                     .getInstalledLookAndFeels()) {
@@ -21,7 +21,7 @@ public class MainClass {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            
+            log.error(ex);
         }
         gui = GUI.getInstance();
         gui.setVisible(true);
@@ -48,6 +48,7 @@ public class MainClass {
                 rt.exec(new String[]{"sh", "-c", cmd.toString()});
             }
         } catch (IOException e) {
+            log.error(e);
         }
     }
 
