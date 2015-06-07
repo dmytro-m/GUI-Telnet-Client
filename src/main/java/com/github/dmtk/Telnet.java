@@ -25,7 +25,6 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
     private int remoteport;
     private PrintStream out;
     
-
     public Telnet(String remoteip, int remoteport,PrintStream out) {
 
         this.remoteip = remoteip;
@@ -226,5 +225,10 @@ public class Telnet extends Terminal implements Runnable, TelnetNotificationHand
         }
 
     }
+     @Override
+    public String toString() {
+        return "Telnet";
+    }
+
 
 }

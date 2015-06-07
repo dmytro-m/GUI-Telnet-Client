@@ -5,10 +5,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import javax.swing.*;
+import org.apache.log4j.Logger;
 
 public class Ssh extends Terminal {
 
     private Session session;
+    private final static Logger log = Logger.getLogger(Ssh.class);
 
     public void start(String host, int port, PrintStream output, String user, String password) {
 
@@ -94,8 +96,8 @@ public class Ssh extends Terminal {
                     }
                 } while ((ret_read > 0) && (end_loop == false));
             }
-        } catch (JSchException | IOException e) {
-            e.printStackTrace();
+        } catch (JSchException | IOException ex) {
+           log.error(ex);
         }
 
     }

@@ -5,17 +5,16 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import org.apache.log4j.Logger;
  
 public class StringCrypter {
  
-    
+    private final static Logger log = Logger.getLogger(StringCrypter.class);
     /**
      * Упрощенный конструктор. Создает StringCrypter с ключом
      * DESSecretKey (алгоритм шифрования DES) со значением key.
@@ -86,7 +85,7 @@ public class StringCrypter {
             byte[] enc = ecipher.doFinal(utf8);
             return Base64.encodeBase64String(enc);
         } catch (IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException ex) {
-            Logger.getLogger(StringCrypter.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         return null;
     }
@@ -103,7 +102,7 @@ public class StringCrypter {
             byte[] utf8 = dcipher.doFinal(dec);
             return new String(utf8, "UTF8");
         } catch (IllegalBlockSizeException | BadPaddingException | IOException ex) {
-            Logger.getLogger(StringCrypter.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         return null;
     }

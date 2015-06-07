@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class Authentication implements Serializable {
 
@@ -17,6 +16,7 @@ public class Authentication implements Serializable {
     private String passwdTerminal;
     private String loginBilling;
     private String passwdBilling;
+    private final static Logger log = Logger.getLogger(Authentication.class);
     private byte[] key=new byte[]{35, 56, 20, 40, 25, 97, 47, 28};//key for DES encryption
     Authentication(GUI gui) throws IOException, ClassNotFoundException {
 
@@ -36,7 +36,7 @@ public class Authentication implements Serializable {
             gui.getjPasswordField2().setText(this.passwdTerminal);
             new File("temp.out").delete();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Authentication.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
             this.loginBilling = gui.getjTextField9().getText();
             this.loginTerminal = gui.getjTextField10().getText();
             this.passwdBilling = new String(gui.getjPasswordField1().getPassword());

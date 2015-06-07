@@ -4,15 +4,16 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+
 public class BillingParser {
 
+    private final static Logger log = Logger.getLogger(BillingParser.class);
     static String userID;
     static String userTitle;
     static String abon_num;
@@ -71,7 +72,7 @@ public class BillingParser {
                 Thread.sleep(800);
                 GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + ".");
             } catch (InterruptedException ex) {
-                Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
+               log.error(ex);
             }
         }
         try {
@@ -82,13 +83,13 @@ public class BillingParser {
             element = driver.findElement(By.cssSelector(cssSelectorAcceptButtonName));
             element.click();
         } catch (Exception ex) {
-            Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
 
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + "Done ");
         return driver;
@@ -113,7 +114,7 @@ public class BillingParser {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(BillingParser.class.getName()).log(Level.SEVERE, null, ex);
+                   log.error(ex);
                 }
                 try {
                     element = driver.findElement(By.className(htmlTableClassName));

@@ -6,10 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class Pinger {
+    
+    private final static Logger log = Logger.getLogger(Pinger.class);
+    
     static synchronized void pingClient(PrintStream stream, String ip) {
 
         List<String> commands = new ArrayList<String>();
@@ -21,7 +23,7 @@ public class Pinger {
         try {
             process = pb.start();
         } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -32,7 +34,7 @@ public class Pinger {
                 stream.println(newString);
             }
         } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         // read any errors from the attempted command
         try {
@@ -40,7 +42,7 @@ public class Pinger {
                 stream.println(s);                
             }
         } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
     }
 }

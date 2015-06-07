@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.github.dmtk;
 
 import java.io.File;
@@ -16,13 +11,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.apache.log4j.Logger;
 
-/**
- *
- * @author Dmytro
- */
 public class XMLConfigReader {
 
+    private final static Logger log = Logger.getLogger(XMLConfigReader.class);
     public static String read(String variable) {
         String result = null;
         try {
@@ -47,8 +40,8 @@ public class XMLConfigReader {
 
             }
 
-        } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
-            e.printStackTrace();
+        } catch (ParserConfigurationException | SAXException | IOException | DOMException ex) {
+           log.error(ex);
         }
         return result;
 

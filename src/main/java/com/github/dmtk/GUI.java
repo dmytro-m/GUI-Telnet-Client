@@ -9,12 +9,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.log4j.Logger;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -30,8 +29,12 @@ public class GUI extends javax.swing.JFrame {
     private DLinkSwitch dls = new DLinkSwitch();
     private BDCOMOlt bdt = new BDCOMOlt();
     private final String ctrlC = "\003";
+    private final static Logger log = Logger.getLogger(GUI.class);
 
     private GUI() {
+        
+        
+        log.info("Start GUI");
 
         initComponents();
         DefaultCaret caret = (DefaultCaret) CLITextArea1.getCaret();
@@ -40,7 +43,7 @@ public class GUI extends javax.swing.JFrame {
         try {
             au = new Authentication(this);
         } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (ClassNotFoundException ex) {
             
         }
@@ -2029,7 +2032,7 @@ public class GUI extends javax.swing.JFrame {
             try {
                 telnet.disconnect();
             } catch (IOException ex) {
-                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                log.error(ex);
             }
         }
         telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), outputTelnet);
@@ -2040,9 +2043,8 @@ public class GUI extends javax.swing.JFrame {
 
                 try {
                     telnet.execute();
-                    CLITextArea1.setText(CLITextArea1.getText() + "Connection \n");
                 } catch (Exception ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error(ex);
                 }
             }
         });
@@ -2106,8 +2108,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(250);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
             CLITextArea1.setText(filteroutput(CLITextArea1.getText()));
@@ -2133,8 +2134,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = new String(getjPasswordField2().getPassword());
         telnetActive.sendCommand(command);
@@ -2142,8 +2142,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -2240,8 +2239,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -2254,8 +2252,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton16ActionPerformed
@@ -2311,8 +2308,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = " ";//Space for rolling output
         telnetActive.sendCommand(command);
@@ -2320,16 +2316,14 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         telnetActive.sendCommand(command);
         try {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         telnetActive.sendCommand(command);
         command = ctrlC;
@@ -2337,8 +2331,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -2356,8 +2349,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = " ";
         telnetActive.sendCommand(command);
@@ -2365,8 +2357,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = " ";
         telnetActive.sendCommand(command);
@@ -2374,8 +2365,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = ctrlC;//Ctrl+C
         telnetActive.sendCommand(command);
@@ -2387,19 +2377,16 @@ public class GUI extends javax.swing.JFrame {
                 au.serialize();
 
             } catch (IOException ex) {
-                Logger.getLogger(GUI.class
-                        .getName()).log(Level.SEVERE, null, ex);
+               log.error(ex);
             }
         } else if (!jCheckBox5.isSelected()) {
             try {
                 au.repair();
 
             } catch (IOException ex) {
-                Logger.getLogger(GUI.class
-                        .getName()).log(Level.SEVERE, null, ex);
+               log.error(ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI.class
-                        .getName()).log(Level.SEVERE, null, ex);
+               log.error(ex);
             }
         }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
@@ -2797,8 +2784,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(100);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
@@ -2810,8 +2796,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(100);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
@@ -2923,8 +2908,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(20);//delay for sending command
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -2985,8 +2969,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         String command = getjTextField10().getText();
         telnetActive.sendCommand(command);
@@ -2994,8 +2977,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = new String(getjPasswordField2().getPassword());
         telnetActive.sendCommand(command);
@@ -3003,8 +2985,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class
-                    .getName()).log(Level.SEVERE, null, ex);
+           log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -3315,8 +3296,7 @@ public class GUI extends javax.swing.JFrame {
                 Thread.sleep(1000);
 
             } catch (InterruptedException ex) {
-                Logger.getLogger(GUI.class
-                        .getName()).log(Level.SEVERE, null, ex);
+               log.error(ex);
             }
             if (out.getText().contains("wait")) {
                 out.setText(out.getText().substring(0, out.getText().lastIndexOf("wait")));

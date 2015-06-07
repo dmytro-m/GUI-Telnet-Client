@@ -6,9 +6,11 @@ import java.io.OutputStream;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import org.apache.log4j.Logger;
 
 public abstract class Terminal {
 
+    private final static Logger log = Logger.getLogger(Terminal.class);
     protected OutputStream streamOut;
     protected boolean end_loop = false;
     protected byte[] buff = new byte[1024];
@@ -29,7 +31,8 @@ public abstract class Terminal {
         while (!interruptWaiting) {
             try {
                 Thread.sleep(20);
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
+                log.error(ex);
             }
         }
         interruptWaiting = false;
