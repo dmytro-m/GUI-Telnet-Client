@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-
 public class BillingParser {
 
     private final static Logger log = Logger.getLogger(BillingParser.class);
@@ -36,15 +35,15 @@ public class BillingParser {
     static String htmlInputPortClassName = XMLConfigReader.read("htmlInputPortClassName");
     static String htmlInputVlanClassName = XMLConfigReader.read("htmlInputVlanClassName");
     static String htmlInputIpClassName = XMLConfigReader.read("htmlInputVlanClassName");
-    static String htmlInputMacClassName= XMLConfigReader.read("htmlInputMacClassName");
-    static String htmlInputLastNameName= XMLConfigReader.read("htmlInputLastNameName");
-    static String htmlInputFirstNameName= XMLConfigReader.read("htmlInputFirstNameName");
-    static String htmlInputPatronymicName= XMLConfigReader.read("htmlInputPatronymicName");
-    static String htmlSelectViewClassName= XMLConfigReader.read("htmlSelectViewClassName");
-    static String htmlInputPlaceClassName= XMLConfigReader.read("htmlInputPlaceClassName");
-    static String htmlInputContractName= XMLConfigReader.read("htmlInputContractName");
-    static String htmlInputLoginName= XMLConfigReader.read("htmlInputLoginName");
-    static String hostFilterGETRequest= XMLConfigReader.read("hostFilterGETRequest");
+    static String htmlInputMacClassName = XMLConfigReader.read("htmlInputMacClassName");
+    static String htmlInputLastNameName = XMLConfigReader.read("htmlInputLastNameName");
+    static String htmlInputFirstNameName = XMLConfigReader.read("htmlInputFirstNameName");
+    static String htmlInputPatronymicName = XMLConfigReader.read("htmlInputPatronymicName");
+    static String htmlSelectViewClassName = XMLConfigReader.read("htmlSelectViewClassName");
+    static String htmlInputPlaceClassName = XMLConfigReader.read("htmlInputPlaceClassName");
+    static String htmlInputContractName = XMLConfigReader.read("htmlInputContractName");
+    static String htmlInputLoginName = XMLConfigReader.read("htmlInputLoginName");
+    static String hostFilterGETRequest = XMLConfigReader.read("hostFilterGETRequest");
     static String hostFilterGETRequestOption = XMLConfigReader.read("hostFilterGETRequestOption");
     static String idFilterGETRequestOption = XMLConfigReader.read("idFilterGETRequestOption");
     static String idFilterGETRequestOption2 = XMLConfigReader.read("idFilterGETRequestOption2");
@@ -55,13 +54,12 @@ public class BillingParser {
     static String hostFilterGETRequestOption2 = XMLConfigReader.read("hostFilterGETRequestOption2");
     static String htmlInputAutentificationLoginName = XMLConfigReader.read("htmlInputAutentificationLoginName");
     static String htmlInputPasswordName = XMLConfigReader.read("htmlInputPasswordName");
-    static String idTag=XMLConfigReader.read("idTag");
-    
-    static String eq ="&";
-    
+    static String idTag = XMLConfigReader.read("idTag");
+
+    static String eq = "&";
+
     private static HtmlUnitDriver authorize() {
 
-        System.out.print(billingURL);
         GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + "Autorization");
 
         HtmlUnitDriver driver = new HtmlUnitDriver();
@@ -72,7 +70,7 @@ public class BillingParser {
                 Thread.sleep(800);
                 GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + ".");
             } catch (InterruptedException ex) {
-               log.error(ex);
+                log.error(ex);
             }
         }
         try {
@@ -83,13 +81,13 @@ public class BillingParser {
             element = driver.findElement(By.cssSelector(cssSelectorAcceptButtonName));
             element.click();
         } catch (Exception ex) {
-           log.error(ex);
+            log.error(ex);
         }
 
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         GUI.getInstance().getjLabel2().setText(GUI.getInstance().getjLabel2().getText() + "Done ");
         return driver;
@@ -109,12 +107,12 @@ public class BillingParser {
                 abon_num = num;
                 String modemIP = null;
                 HtmlUnitDriver driver = authorize();
-                driver.get(billingURL + dataClientPage + requestSymbol + loginGETRequestVariable+"%3D"  + abon_num);
-                System.out.println(driver.getCurrentUrl());
+                driver.get(billingURL + dataClientPage + requestSymbol + loginGETRequestVariable + "%3D" + abon_num);
+
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ex) {
-                   log.error(ex);
+                    log.error(ex);
                 }
                 try {
                     element = driver.findElement(By.className(htmlTableClassName));
@@ -127,13 +125,13 @@ public class BillingParser {
                     userID = sub.substring(sub.indexOf(idGETRequestVariable) + 7, sub.indexOf(idFilterGETRequestAnchor));
                     String sub2 = element.getAttribute("title");
                     userTitle = sub2.substring(sub2.indexOf("(") + 1, sub2.indexOf(")"));
-                    driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq+idFilterGETRequest+eq+idFilterGETRequestOption+idFilterGETRequestAnchor2);
-                    System.out.println(driver.getCurrentUrl());
+                    driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq + idFilterGETRequest + eq + idFilterGETRequestOption + idFilterGETRequestAnchor2);
+
                 } catch (org.openqa.selenium.StaleElementReferenceException ex) {
                     GUI.getInstance().getjLabel2().setText("wrong id");
                 }
                 try {
-                    driver.get(billingURL + computerInformationPage + requestSymbol + hostFilterGETRequest+eq+hostFilterGETRequestOption+"%3D" + userTitle + hostFilterGETRequestAnchor);
+                    driver.get(billingURL + computerInformationPage + requestSymbol + hostFilterGETRequest + eq + hostFilterGETRequestOption + "%3D" + userTitle + hostFilterGETRequestAnchor);
 
                     //parse switch info
                     List<WebElement> links = driver.findElements(By.tagName("a"));
@@ -156,21 +154,20 @@ public class BillingParser {
                     Iterator<WebElement> itr = comp.iterator();
                     List<Host> hosts = new ArrayList<Host>();
                     List<String> hostIDs = new ArrayList<String>();
-                    System.out.println(driver.getCurrentUrl());
+
                     while (itr.hasNext()) {
 
                         element = itr.next();
-                        System.out.println(element.getText());
                         String sub = element.getAttribute(htmlNavigator);
                         String hostID = sub.substring(sub.indexOf(hostIdGETRequestVariable) + 7, sub.indexOf(hostFilterGETRequestAnchor));
                         hostIDs.add(hostID);
-                        System.out.println(hostID);
+                        log.info(hostID);
 
                     }
                     for (int i = 0; i < hostIDs.size(); i++) {
 
-                        driver.get(billingURL + computerInformationPage + requestSymbol + hostFilterGETRequest + userTitle + eq+hostIdGETRequestVariable + hostIDs.get(i) + eq+hostFilterGETRequestOption2+hostFilterGETRequestAnchor);
-                        System.out.println(driver.getCurrentUrl());
+                        driver.get(billingURL + computerInformationPage + requestSymbol + hostFilterGETRequest + userTitle + eq + hostIdGETRequestVariable + hostIDs.get(i) + eq + hostFilterGETRequestOption2 + hostFilterGETRequestAnchor);
+                        log.info(driver.getCurrentUrl());
                         Host host = new Host();
                         host.setId(hostIDs.get(i));
                         element = driver.findElement(By.name(htmlInputMacClassName));
@@ -187,7 +184,7 @@ public class BillingParser {
                     GUI.getInstance().initialiseHosts(hosts);
 
                     //parse user name info
-                    driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq+idFilterGETRequestOption2+idFilterGETRequestAnchor);
+                    driver.get(billingURL + dataClientPage + requestSymbol + idGETRequestVariable + userID + eq + idFilterGETRequestOption2 + idFilterGETRequestAnchor);
                     element = driver.findElement(By.name(htmlInputLastNameName));
                     GUI.getInstance().getjLabel2().setText(element.getAttribute(htmlElementAttribute));
                     element = driver.findElement(By.name(htmlInputFirstNameName));

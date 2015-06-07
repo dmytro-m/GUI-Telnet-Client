@@ -10,7 +10,7 @@ public class Formater {
             if (str.charAt(i) == '-') {
                 count++;
                 if (count % 2 == 0) {
-                    System.out.println(i);
+                    
                     out += ".";
                 }
             } else {

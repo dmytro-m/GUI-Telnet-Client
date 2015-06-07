@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 public class GUI extends javax.swing.JFrame {
 
     private volatile static GUI uniqueGui;
-    
+
     private Telnet telnet = null;
     private Ssh ssh = new Ssh();
     private Authentication au;
@@ -33,19 +33,14 @@ public class GUI extends javax.swing.JFrame {
 
     private GUI() {
         
-        
-        log.info("Start GUI");
-
         initComponents();
         DefaultCaret caret = (DefaultCaret) CLITextArea1.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         try {
             au = new Authentication(this);
-        } catch (IOException ex) {
-            
-        } catch (ClassNotFoundException ex) {
-            
+        } catch (IOException | ClassNotFoundException ex) {
+            log.error(ex);
         }
 
     }
@@ -2093,7 +2088,6 @@ public class GUI extends javax.swing.JFrame {
                 PingWindow p = new PingWindow();
                 p.setVisible(true);
                 PrintStream printStream = new PrintStream(new TextAreaOutputStream(p.getjTextArea1()));
-                System.setOut(printStream);
                 Pinger.pingClient(printStream, ipTextField.getText());
             }
 
@@ -2108,7 +2102,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(250);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
             CLITextArea1.setText(filteroutput(CLITextArea1.getText()));
@@ -2134,7 +2128,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = new String(getjPasswordField2().getPassword());
         telnetActive.sendCommand(command);
@@ -2142,7 +2136,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -2161,8 +2155,8 @@ public class GUI extends javax.swing.JFrame {
                 try {
                     result = (String) contents.getTransferData(DataFlavor.stringFlavor);
                 } catch (UnsupportedFlavorException | IOException ex) {
-                    System.out.println(ex);
-                    ex.printStackTrace();
+                    log.error(ex);
+
                 }
             }
             if (result != null) {
@@ -2239,7 +2233,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -2252,7 +2246,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton16ActionPerformed
@@ -2308,7 +2302,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = " ";//Space for rolling output
         telnetActive.sendCommand(command);
@@ -2316,14 +2310,14 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         telnetActive.sendCommand(command);
         try {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         telnetActive.sendCommand(command);
         command = ctrlC;
@@ -2331,7 +2325,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -2349,7 +2343,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = " ";
         telnetActive.sendCommand(command);
@@ -2357,7 +2351,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = " ";
         telnetActive.sendCommand(command);
@@ -2365,7 +2359,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(150);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = ctrlC;//Ctrl+C
         telnetActive.sendCommand(command);
@@ -2377,16 +2371,16 @@ public class GUI extends javax.swing.JFrame {
                 au.serialize();
 
             } catch (IOException ex) {
-               log.error(ex);
+                log.error(ex);
             }
         } else if (!jCheckBox5.isSelected()) {
             try {
                 au.repair();
 
             } catch (IOException ex) {
-               log.error(ex);
+                log.error(ex);
             } catch (ClassNotFoundException ex) {
-               log.error(ex);
+                log.error(ex);
             }
         }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
@@ -2784,7 +2778,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(100);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
@@ -2796,7 +2790,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(100);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
@@ -2908,7 +2902,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(20);//delay for sending command
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -2969,7 +2963,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         String command = getjTextField10().getText();
         telnetActive.sendCommand(command);
@@ -2977,7 +2971,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = new String(getjPasswordField2().getPassword());
         telnetActive.sendCommand(command);
@@ -2985,7 +2979,7 @@ public class GUI extends javax.swing.JFrame {
             Thread.sleep(50);
 
         } catch (InterruptedException ex) {
-           log.error(ex);
+            log.error(ex);
         }
         command = ctrlC;
         telnetActive.sendCommand(command);
@@ -3296,7 +3290,7 @@ public class GUI extends javax.swing.JFrame {
                 Thread.sleep(1000);
 
             } catch (InterruptedException ex) {
-               log.error(ex);
+                log.error(ex);
             }
             if (out.getText().contains("wait")) {
                 out.setText(out.getText().substring(0, out.getText().lastIndexOf("wait")));
@@ -3322,7 +3316,6 @@ public class GUI extends javax.swing.JFrame {
         Host host;
         int i = Integer.parseInt(String.valueOf(jComboBox6.getSelectedItem()));
         host = hosts.get(i - 1);
-        System.out.println(host);
         selectedHostID = host.getId();
         macTextField.setText(host.getMac());
         ipTextField.setText(host.getIp());
@@ -3358,5 +3351,5 @@ public class GUI extends javax.swing.JFrame {
     public javax.swing.JLabel getjLabel2() {
         return jLabel2;
     }
-    
+
 }

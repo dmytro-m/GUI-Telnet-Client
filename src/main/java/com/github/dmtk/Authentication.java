@@ -36,11 +36,12 @@ public class Authentication implements Serializable {
             gui.getjPasswordField2().setText(this.passwdTerminal);
             new File("temp.out").delete();
         } catch (FileNotFoundException ex) {
-           log.error(ex);
+           
             this.loginBilling = gui.getjTextField9().getText();
             this.loginTerminal = gui.getjTextField10().getText();
             this.passwdBilling = new String(gui.getjPasswordField1().getPassword());
             this.passwdTerminal = new String(gui.getjPasswordField2().getPassword());
+            log.error(ex);
         }
 
     }
