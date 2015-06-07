@@ -2370,16 +2370,14 @@ public class GUI extends javax.swing.JFrame {
             try {
                 au.serialize();
 
-            } catch (IOException ex) {
+            } catch (IOException | NullPointerException ex) {
                 log.error(ex);
             }
         } else if (!jCheckBox5.isSelected()) {
             try {
                 au.repair();
 
-            } catch (IOException ex) {
-                log.error(ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException | NullPointerException  ex) {
                 log.error(ex);
             }
         }

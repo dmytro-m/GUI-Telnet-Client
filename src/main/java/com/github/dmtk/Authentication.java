@@ -18,6 +18,7 @@ public class Authentication implements Serializable {
     private String passwdBilling;
     private final static Logger log = Logger.getLogger(Authentication.class);
     private byte[] key=new byte[]{35, 56, 20, 40, 25, 97, 47, 28};//key for DES encryption
+    
     Authentication(GUI gui) throws IOException, ClassNotFoundException {
 
         FileInputStream fis;

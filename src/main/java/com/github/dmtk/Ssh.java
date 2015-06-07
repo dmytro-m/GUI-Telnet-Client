@@ -81,7 +81,7 @@ public class Ssh extends Terminal {
                     in = new ByteArrayInputStream(buff);
                     try {
                         ret_read = in.read(buff);
-                        System.out.print(ret_read + " " + new String(buff, 0, ret_read) + "\n");
+                        //System.out.print(ret_read + " " + new String(buff, 0, ret_read) + "\n");
 
                         try {
                             streamOut.write(buff, 0, ret_read);
@@ -90,8 +90,8 @@ public class Ssh extends Terminal {
                             end_loop = true;
                         }
 
-                    } catch (IOException e) {
-                        System.err.println("Exception while reading keyboard:" + e.getMessage());
+                    } catch (IOException ex) {
+                        log.error("Exception while reading keyboard:" + ex);
                         end_loop = true;
                     }
                 } while ((ret_read > 0) && (end_loop == false));
