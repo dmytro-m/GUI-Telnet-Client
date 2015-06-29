@@ -72,7 +72,7 @@ public class Ssh extends Terminal {
              ((ChannelShell)channel).setEnv("LANG", "ja_JP.eucJP");
              */
             //channel.connect();
-            channel.connect(3 * 1000);
+            channel.connect(60 * 1000);//60 sec timeout
             while (!end_loop) {
                 end_loop = false;
                 int ret_read = 0;

@@ -2724,7 +2724,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void jCheckBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox10ActionPerformed
 
-        String command = ecs.configureMacAddressTable(macTextField.getText(), Integer.parseInt(portTextField.getText()), Integer.parseInt(vlanTextField.getText()), jCheckBox10.isSelected());
+        Vlan vlan = new Vlan(vlanTextField.getText());
+        String command = ecs.configureMacAddressTable(macTextField.getText(), Integer.parseInt(portTextField.getText()), vlan.getId() , jCheckBox10.isSelected());
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jCheckBox10ActionPerformed
