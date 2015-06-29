@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 public class Port{
 
     private int port;
-    private final int defaultVlan = 2;
-    private final static Logger log = Logger.getLogger(Vlan.class);
+    private final int defaultPort = 2;
+    private final static Logger log = Logger.getLogger(Port.class);
 
     public Port(String port) {
 
@@ -29,7 +29,7 @@ public class Port{
         if (validate(port)) {
             this.port = port;
         } else {
-            this.port = defaultVlan;
+            this.port = defaultPort;
             log.error("Wrong port number" + port);
         }
     }
