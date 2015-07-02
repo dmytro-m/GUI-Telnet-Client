@@ -57,7 +57,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+                           
     private void initComponents() {
 
         idTextField = new javax.swing.JTextField();
@@ -221,11 +221,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telnet client for Edge-Core & D-link");
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
+        
 
         idTextField.setText("client_id");
         idTextField.setToolTipText("Введіть №договору і натисніть \"Enter\" для підтвердження");
@@ -241,18 +237,10 @@ public class GUI extends javax.swing.JFrame {
         });
 
         ipTextField.setToolTipText("type client IP here...");
-        ipTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ipTextFieldActionPerformed(evt);
-            }
-        });
+        
 
         portTextField.setToolTipText("№ port");
-        portTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                portTextFieldActionPerformed(evt);
-            }
-        });
+        
 
         jButton4.setText("clear CLI");
         MyButtonUI.setupButtonUI(jButton4);
@@ -291,11 +279,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        vlanTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vlanTextFieldActionPerformed(evt);
-            }
-        });
+        
 
         jLabel3.setText("vlan");
         jLabel3.setToolTipText("virtual local area network");
@@ -821,11 +805,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField11.setText("vlan_№");
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
-            }
-        });
+        
 
         jTextField15.setText("vlan_name");
 
@@ -848,11 +828,7 @@ public class GUI extends javax.swing.JFrame {
         jTextField14.setText("vlan_to_rm");
 
         jCheckBox14.setText("vlan[un]tagged ");
-        jCheckBox14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox14ActionPerformed(evt);
-            }
-        });
+        
 
         jButton37.setText("show vlan id");
         MyButtonUI.setupButtonUI(jButton37);
@@ -1252,11 +1228,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField18.setText("vlan#");
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
-            }
-        });
+        
 
         jButton73.setText("add vlan on port");
         MyButtonUI.setupButtonUI(jButton73);
@@ -1285,11 +1257,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField3.setText("vlanId");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1629,11 +1597,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField10.setText("login");
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
+       
 
         jLabel6.setText("Billing");
 
@@ -1720,11 +1684,7 @@ public class GUI extends javax.swing.JFrame {
         CLITextArea3.setAutoscrolls(false);
         CLITextArea3.setCaretColor(new java.awt.Color(255, 255, 255));
         CLITextArea3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        CLITextArea3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CLITextArea3MouseClicked(evt);
-            }
-        });
+        
         CLITextArea3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CLITextArea3KeyPressed(evt);
@@ -1734,16 +1694,8 @@ public class GUI extends javax.swing.JFrame {
 
         switchIPTextField3.setText("...type IP");
         switchIPTextField3.setToolTipText("IP комутатора");
-        switchIPTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                switchIPTextField3ActionPerformed(evt);
-            }
-        });
-        switchIPTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                switchIPTextField3KeyTyped(evt);
-            }
-        });
+        
+       
 
         tcpPortTextField3.setText("22");
         tcpPortTextField3.setToolTipText("Port for telnet connection");
@@ -1867,11 +1819,7 @@ public class GUI extends javax.swing.JFrame {
                 CLITextArea1MouseClicked(evt);
             }
         });
-        CLITextArea1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                CLITextArea1PropertyChange(evt);
-            }
-        });
+        
         CLITextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CLITextArea1KeyPressed(evt);
@@ -2008,19 +1956,15 @@ public class GUI extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
+    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
 
         BillingParser.parseInfo(idTextField.getText());
 
-    }//GEN-LAST:event_idTextFieldActionPerformed
+    }
 
-    private void portTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_portTextFieldActionPerformed
-
-    }//GEN-LAST:event_portTextFieldActionPerformed
-
-    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
         final PrintStream outputTelnet = new PrintStream(new TextAreaOutputStream(CLITextArea1));
         if (telnet != null) {
@@ -2032,7 +1976,7 @@ public class GUI extends javax.swing.JFrame {
         }
         telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), outputTelnet);
         telnetActive = telnet;
-        Thread myThready = new Thread(new Runnable() {
+        Thread additionalThread = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -2043,13 +1987,11 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         });
-        myThready.start();
+        additionalThread.start();
 
-    }//GEN-LAST:event_connectButtonActionPerformed
+    }
 
-    private void ipTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ipTextFieldActionPerformed
+   
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
@@ -2082,7 +2024,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        Thread myThready = new Thread(new Runnable() {
+        Thread additionalThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 PingWindow p = new PingWindow();
@@ -2092,7 +2034,7 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
-        myThready.start();
+        additionalThread.start();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
@@ -2429,18 +2371,6 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton28ActionPerformed
-
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
-    private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
-
-    }//GEN-LAST:event_jCheckBox14ActionPerformed
 
     private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
 
@@ -2813,7 +2743,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Thread myThready = new Thread(new Runnable() {
+        Thread additionalThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 PingWindow p = new PingWindow();
@@ -2823,16 +2753,8 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
-        myThready.start();
+        additionalThread.start();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void vlanTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vlanTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_vlanTextFieldActionPerformed
-
-    private void CLITextArea1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_CLITextArea1PropertyChange
-
-    }//GEN-LAST:event_CLITextArea1PropertyChange
 
     private void jCheckBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox19ActionPerformed
 
@@ -2869,10 +2791,6 @@ public class GUI extends javax.swing.JFrame {
         String command = ecs.showCPU();
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton80ActionPerformed
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
-    }//GEN-LAST:event_formKeyPressed
 
     private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
 
@@ -2914,10 +2832,6 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton26ActionPerformed
 
-    private void CLITextArea3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CLITextArea3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CLITextArea3MouseClicked
-
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
 
         String command = parseCommand(CLITextArea3, evt.getKeyChar());
@@ -2927,14 +2841,6 @@ public class GUI extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_CLITextArea3KeyPressed
-
-    private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_switchIPTextField3ActionPerformed
-
-    private void switchIPTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_switchIPTextField3KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
 
@@ -3003,15 +2909,6 @@ public class GUI extends javax.swing.JFrame {
         String command = "exit";
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CLITerminal1;
