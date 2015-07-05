@@ -57,18 +57,15 @@ public class GUI extends javax.swing.JFrame {
     }
 
 
-                           
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        idTextField = new javax.swing.JTextField();
         ipTextField = new javax.swing.JTextField();
         portTextField = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         macTextField = new javax.swing.JTextField();
-        jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         vlanTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton23 = new javax.swing.JButton();
@@ -221,26 +218,25 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telnet client for Edge-Core & D-link");
         setResizable(false);
-        
-
-        idTextField.setText("client_id");
-        idTextField.setToolTipText("Введіть №договору і натисніть \"Enter\" для підтвердження");
-        idTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextFieldActionPerformed(evt);
-            }
-        });
-        idTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                idTextFieldKeyPressed(evt);
+                formKeyPressed(evt);
             }
         });
 
         ipTextField.setToolTipText("type client IP here...");
-        
+        ipTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ipTextFieldActionPerformed(evt);
+            }
+        });
 
         portTextField.setToolTipText("№ port");
-        
+        portTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                portTextFieldActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("clear CLI");
         MyButtonUI.setupButtonUI(jButton4);
@@ -258,14 +254,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setText("OK");
-        MyButtonUI.setupButtonUI(jButton12);
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-
         jButton13.setText("ping");
         MyButtonUI.setupButtonUI(jButton13);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -277,9 +265,11 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Client IP");
 
-        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        
+        vlanTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vlanTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("vlan");
         jLabel3.setToolTipText("virtual local area network");
@@ -805,7 +795,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField11.setText("vlan_№");
-        
+        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField11ActionPerformed(evt);
+            }
+        });
 
         jTextField15.setText("vlan_name");
 
@@ -828,7 +822,11 @@ public class GUI extends javax.swing.JFrame {
         jTextField14.setText("vlan_to_rm");
 
         jCheckBox14.setText("vlan[un]tagged ");
-        
+        jCheckBox14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox14ActionPerformed(evt);
+            }
+        });
 
         jButton37.setText("show vlan id");
         MyButtonUI.setupButtonUI(jButton37);
@@ -1228,7 +1226,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField18.setText("vlan#");
-        
+        jTextField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField18ActionPerformed(evt);
+            }
+        });
 
         jButton73.setText("add vlan on port");
         MyButtonUI.setupButtonUI(jButton73);
@@ -1257,7 +1259,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField3.setText("vlanId");
-        
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1597,7 +1603,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jTextField10.setText("login");
-       
+        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField10ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Billing");
 
@@ -1684,7 +1694,11 @@ public class GUI extends javax.swing.JFrame {
         CLITextArea3.setAutoscrolls(false);
         CLITextArea3.setCaretColor(new java.awt.Color(255, 255, 255));
         CLITextArea3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        
+        CLITextArea3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CLITextArea3MouseClicked(evt);
+            }
+        });
         CLITextArea3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CLITextArea3KeyPressed(evt);
@@ -1694,14 +1708,23 @@ public class GUI extends javax.swing.JFrame {
 
         switchIPTextField3.setText("...type IP");
         switchIPTextField3.setToolTipText("IP комутатора");
-        
-       
+        switchIPTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                switchIPTextField3ActionPerformed(evt);
+            }
+        });
+        switchIPTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                switchIPTextField3KeyTyped(evt);
+            }
+        });
 
         tcpPortTextField3.setText("22");
         tcpPortTextField3.setToolTipText("Port for telnet connection");
 
         MyButtonUI.setupButtonUI(connectButton3);
         connectButton3.setText("Connect");
+        
         connectButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 connectButton3ActionPerformed(evt);
@@ -1710,6 +1733,7 @@ public class GUI extends javax.swing.JFrame {
 
         MyButtonUI.setupButtonUI(loginButton3);
         loginButton3.setText("login");
+        
         loginButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButton3ActionPerformed(evt);
@@ -1768,7 +1792,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("SSH", jPanel3);
@@ -1819,7 +1843,11 @@ public class GUI extends javax.swing.JFrame {
                 CLITextArea1MouseClicked(evt);
             }
         });
-        
+        CLITextArea1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                CLITextArea1PropertyChange(evt);
+            }
+        });
         CLITextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CLITextArea1KeyPressed(evt);
@@ -1863,7 +1891,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(loginButton)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Telnet #1", CLITerminal1);
@@ -1877,94 +1905,75 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, 0)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(ipTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                                            .addComponent(macTextField))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(vlanTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                                    .addComponent(portTextField)))
-                            .addComponent(commandTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addGap(0, 0, 0)
-                                .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(CtrlCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(ipTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                                    .addComponent(macTextField))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(vlanTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(portTextField)))
+                    .addComponent(commandTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addGap(0, 0, 0)
+                        .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(CtrlCButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton12))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(ipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(vlanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(macTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton23)
-                            .addComponent(CtrlCButton)
-                            .addComponent(jButton13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(commandTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPane2))))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(ipTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(vlanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(macTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton23)
+                    .addComponent(CtrlCButton)
+                    .addComponent(jButton13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(commandTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    private void portTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_portTextFieldActionPerformed
 
-        BillingParser.parseInfo(idTextField.getText());
+    }//GEN-LAST:event_portTextFieldActionPerformed
 
-    }
-
-    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
 
         final PrintStream outputTelnet = new PrintStream(new TextAreaOutputStream(CLITextArea1));
         if (telnet != null) {
@@ -1976,7 +1985,7 @@ public class GUI extends javax.swing.JFrame {
         }
         telnet = new Telnet(switchIPTextField.getText(), Integer.parseInt(jTextField6.getText()), outputTelnet);
         telnetActive = telnet;
-        Thread additionalThread = new Thread(new Runnable() {
+        Thread myThready = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -1987,11 +1996,13 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         });
-        additionalThread.start();
+        myThready.start();
 
-    }
+    }//GEN-LAST:event_connectButtonActionPerformed
 
-   
+    private void ipTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ipTextFieldActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (jTabbedPane2.getTitleAt(jTabbedPane2.getSelectedIndex()).equals("Telnet #1")) {
@@ -2019,12 +2030,8 @@ public class GUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_switchIPTextFieldActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        BillingParser.parseInfo(idTextField.getText());
-    }//GEN-LAST:event_jButton12ActionPerformed
-
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        Thread additionalThread = new Thread(new Runnable() {
+        Thread myThready = new Thread(new Runnable() {
             @Override
             public void run() {
                 PingWindow p = new PingWindow();
@@ -2034,7 +2041,7 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
-        additionalThread.start();
+        myThready.start();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
@@ -2372,6 +2379,18 @@ public class GUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton28ActionPerformed
 
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField10ActionPerformed
+
+    private void jCheckBox14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox14ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox14ActionPerformed
+
     private void jCheckBox15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox15ActionPerformed
 
         String command = ecs.configureVlanArpInspection(Integer.parseInt(jTextField11.getText()), jCheckBox15.isSelected());
@@ -2453,14 +2472,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton62ActionPerformed
         String command = bdt.showEponVlan(Integer.parseInt(jTextField16.getText()), Integer.parseInt(jTextField17.getText()));
-
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton62ActionPerformed
 
     private void jButton60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton60ActionPerformed
         String command = bdt.showEponSnmp(Integer.parseInt(jTextField16.getText()), Integer.parseInt(jTextField17.getText()));
-
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton60ActionPerformed
@@ -2520,21 +2537,6 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
 
     }//GEN-LAST:event_jButton46ActionPerformed
-
-    private void idTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idTextFieldKeyPressed
-        if (!"".equals(jLabel2.getText())) {//erase data from fields 
-            getjLabel2().setText("");
-            ipTextField.setText("");
-            macTextField.setText("");
-            portTextField.setText("");
-            vlanTextField.setText("");
-        }
-        if (idTextField.getText().contains(" ") || idTextField.getText().contains("\t")) {
-
-            idTextField.setText(idTextField.getText().replace(" ", ""));
-            idTextField.setText(idTextField.getText().replace("\t", ""));
-        }
-    }//GEN-LAST:event_idTextFieldKeyPressed
 
     private void switchIPTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_switchIPTextFieldKeyTyped
 
@@ -2739,11 +2741,10 @@ public class GUI extends javax.swing.JFrame {
         String command = ecs.changePortSpeed(jComboBox2.getSelectedItem().toString(), portTextField.getText());
         telnetActive.sendCommand(command);
 
-
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Thread additionalThread = new Thread(new Runnable() {
+        Thread myThready = new Thread(new Runnable() {
             @Override
             public void run() {
                 PingWindow p = new PingWindow();
@@ -2753,8 +2754,16 @@ public class GUI extends javax.swing.JFrame {
             }
 
         });
-        additionalThread.start();
+        myThready.start();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void vlanTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vlanTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vlanTextFieldActionPerformed
+
+    private void CLITextArea1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_CLITextArea1PropertyChange
+
+    }//GEN-LAST:event_CLITextArea1PropertyChange
 
     private void jCheckBox19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox19ActionPerformed
 
@@ -2791,6 +2800,10 @@ public class GUI extends javax.swing.JFrame {
         String command = ecs.showCPU();
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton80ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
 
     private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
 
@@ -2832,6 +2845,10 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton26ActionPerformed
 
+    private void CLITextArea3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CLITextArea3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CLITextArea3MouseClicked
+
     private void CLITextArea3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CLITextArea3KeyPressed
 
         String command = parseCommand(CLITextArea3, evt.getKeyChar());
@@ -2841,6 +2858,14 @@ public class GUI extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_CLITextArea3KeyPressed
+
+    private void switchIPTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchIPTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_switchIPTextField3ActionPerformed
+
+    private void switchIPTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_switchIPTextField3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_switchIPTextField3KeyTyped
 
     private void connectButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButton3ActionPerformed
 
@@ -2910,6 +2935,15 @@ public class GUI extends javax.swing.JFrame {
         telnetActive.sendCommand(command);
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField18ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CLITerminal1;
     private javax.swing.JTextArea CLITextArea1;
@@ -2919,12 +2953,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane commandTabbedPane1;
     private javax.swing.JButton connectButton;
     private javax.swing.JButton connectButton3;
-    private javax.swing.JTextField idTextField;
     private javax.swing.JTextField ipTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -3024,7 +3056,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3116,10 +3147,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * @return the jTextField1
      */
-    public javax.swing.JTextField getjTextField1() {
-        return idTextField;
-    }
-
+    
     /**
      * @return the jTextField2
      */
@@ -3242,11 +3270,5 @@ public class GUI extends javax.swing.JFrame {
         return command;
     }
 
-    /**
-     * @return the jLabel2
-     */
-    public javax.swing.JLabel getjLabel2() {
-        return jLabel2;
-    }
-
+    
 }
